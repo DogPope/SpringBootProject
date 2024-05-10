@@ -1,0 +1,62 @@
+# Gets all Composers
+GET http://localhost:5000/api/composers/
+
+# Create first Composer
+POST http://localhost:8080/api/composers/1
+
+{
+"composerId":1,
+"firstName":"Ludwig",
+"lastName":"van Beethoven",
+"country":"GERMANY",
+"gender":"MALE",
+"dateOfBirth":"1770-12-17T00:00:00.000+00:00",
+"dateOfDeath":"1827-03-26T00:00:00.000+00:00"
+}
+
+###
+
+# Create second Composer
+POST http://localhost:5000/api/composers/2
+Content-Type: application/json
+
+{
+"composerId":2,
+"firstName":"Claude",
+"lastName":"deBussy",
+"country":"FRANCE",
+"gender":"MALE",
+"dateOfBirth":"1862-08-22T00:00:00.000+00:00",
+"dateOfDeath":"1918-03-24T23:00:00.000+00:00"
+}
+
+###
+
+# Update a Composer
+PUT http://localhost:5000/api/composers/1
+Content-Type: application/json
+
+{
+"composerId":2,
+"firstName":"Claude",
+"lastName":"deBussy",
+"country":"AUSTRALIA",
+"gender":"MALE",
+"dateOfBirth":"1862-08-22T00:00:00.000+00:00",
+"dateOfDeath":"1918-03-24T23:00:00.000+00:00"
+}
+
+###
+
+# Search for Composer 1
+GET http://localhost:5000/api/composers/1
+
+###
+
+# No ID corresponding to 69420, this should fail.
+GET https://localhost:5000/api/composers/69420
+
+###
+
+# Delete a Composer # Sorry Claude!
+DELETE http://localhost:5000/api/composers/2

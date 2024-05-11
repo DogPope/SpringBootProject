@@ -3,17 +3,15 @@ package dev.daniel.compo.composer;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+// Couldn't find eastereggs for a while. When @RequestMapping was added to this class, the WHOLE address now rests AFTER 8080/api/composers. Hope that helps.
 @RestController
 @RequestMapping("/api/composers")
 public class ComposerController {
-    private final ComposerRepository composerRepository;
-
-    public ComposerController(ComposerRepository composerRepository){
+    private final JdbcClientComposerRepository composerRepository;
+    public ComposerController(JdbcClientComposerRepository composerRepository){
         this.composerRepository = composerRepository;
     }
 
@@ -35,8 +33,8 @@ public class ComposerController {
         composerRepository.delete(id);
     }
 
-    @GetMapping("/all")
-    ArrayList<Composer> findAll(){
+    @GetMapping("")
+    List<Composer> findAll(){
         return composerRepository.findAll();
     }
 
@@ -47,8 +45,6 @@ public class ComposerController {
             throw new ComposerNotFoundException();
         return composer.get();
     }
-
-    // Couldn't find this for a while. When @RequestMapping was added to this class, the WHOLE address now rests AFTER 8080/api/composers. Hope that helps.
     @GetMapping("/easteregg")
     String easterEgg(){
         return "There are no Easter Eggs here. Go away!";

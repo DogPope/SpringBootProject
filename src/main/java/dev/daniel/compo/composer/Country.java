@@ -1,6 +1,5 @@
 package dev.daniel.compo.composer;
 
-//Sure, I can help you generate the rest of the countries in your Java Enumerator class. Here's an expanded list including more countries from various continents:
 public enum Country {
     ALBANIA("AL", "Albania", Continent.EUROPE),
     ANDORRA("AN", "Andorra", Continent.EUROPE),
@@ -10,7 +9,7 @@ public enum Country {
     ARGENTINA("AR", "Argentina", Continent.SOUTH_AMERICA),
     ARMENIA("AM", "Armenia", Continent.ASIA),
     AUSTRALIA("AU", "Australia", Continent.OCEANIA),
-    AUSTRIA("AT", "Austria", Continent.AUSTRALIA),
+    AUSTRIA("AT", "Austria", Continent.EUROPE),
     AZERBAIJAN("AZ", "Azerbaijan", Continent.ASIA),
     BAHAMAS("BS", "Bahamas", Continent.NORTH_AMERICA),
     BAHRAIN("BH", "Bahrain", Continent.ASIA),
@@ -174,9 +173,7 @@ public enum Country {
     TAJIKISTAN("TJ", "Tajikistan", Continent.ASIA),
     TANZANIA("TZ", "Tanzania", Continent.AFRICA),
     THAILAND("TH", "Thailand", Continent.ASIA),
-    TOGO("TG", "Togo", Continent.AFRICA
-
-    ),
+    TOGO("TG", "Togo", Continent.AFRICA),
     TONGA("TO", "Tonga", Continent.OCEANIA),
     TRINIDAD_AND_TOBAGO("TT", "Trinidad and Tobago", Continent.NORTH_AMERICA),
     TUNISIA("TN", "Tunisia", Continent.AFRICA),

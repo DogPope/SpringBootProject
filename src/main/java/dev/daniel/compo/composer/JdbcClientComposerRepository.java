@@ -1,6 +1,8 @@
 package dev.daniel.compo.composer;
+import dev.daniel.compo.piece.Piece;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -9,19 +11,46 @@ import java.util.*;
 
 @Repository
 public class JdbcClientComposerRepository implements ComposerRepository{
-    private List<Composer> composers = new ArrayList<Composer>();
     private static final Logger log = LoggerFactory.getLogger(ComposerRepository.class);
+    private final NamedParameterJdbcTemplate jdbcTemplate;
     private final JdbcClient jdbcClient;
 
-    public JdbcClientComposerRepository(JdbcClient jdbcClient){
+    public JdbcClientComposerRepository(JdbcClient jdbcClient, NamedParameterJdbcTemplate jdbcTemplate){
         this.jdbcClient = jdbcClient;
+        this.jdbcTemplate = jdbcTemplate;
     }
-    public List<Composer> findAll(){
-        return jdbcClient.sql("select * from composer")
+    /*public List<Composer> findAll() {
+        return jdbcClient.sql("SELECT * FROM composer")
                 .query(Composer.class)
                 .list();
+    }*/
+    public List<Composer> findAll() {
+        // No other way to do this but
+        return jdbcTemplate.query("SELECT * FROM composer",
+                (rs, rowNum) -> {
+                    Composer composer = new Composer();
+                    composer.setComposerId(rs.getInt("composer_id"));
+                    composer.setFirstName(rs.getString("first_name"));
+                    composer.setLastName(rs.getString("last_name"));
+                    composer.setCountry(Country.valueOf(rs.getString("country")));
+                    composer.setGenre(Genre.valueOf(rs.getString("genre")));
+                    composer.setGender(Gender.valueOf(rs.getString("gender")));
+
+                    Calendar yearOfBirth = Calendar.getInstance();
+                    yearOfBirth.setTime(rs.getDate("year_of_birth"));
+                    composer.setDateOfBirth(yearOfBirth);
+
+                    Calendar yearOfDeath = null;
+                    if (rs.getDate("year_of_death") != null) {
+                        yearOfDeath = Calendar.getInstance();
+                        yearOfDeath.setTime(rs.getDate("year_of_death"));
+                    }
+                    composer.setDateOfDeath(yearOfDeath);
+
+                    return composer;
+                });
     }
-    public Optional<Composer> findById(Integer id){
+    public Optional<Composer> findComposerById(Integer id){
         return jdbcClient.sql("SELECT * FROM composer WHERE composer_id=:id")
                 .param("id",id)
                 .query(Composer.class)
@@ -37,7 +66,7 @@ public class JdbcClientComposerRepository implements ComposerRepository{
                 .update();
         Assert.state(updated == 1, "Failed to create Composer: " + composer.getFirstName() + " " + composer.getLastName());
     }
-    // I've finally found out what it was. The last_name in the schema was called second_name by mistake.
+    // I've finally found out what it was. The last_name in the schema was called second_name by mistake. Simple error, simple fix.
     public void update(Composer composer, Integer id){
         var updated = jdbcClient.sql(
                         "UPDATE Composer SET " +

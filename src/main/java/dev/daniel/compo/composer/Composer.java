@@ -4,7 +4,8 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 
-import java.util.Date;
+import java.util.Calendar;
+
 public class Composer{
         @Positive
         private Integer composerId;
@@ -14,9 +15,10 @@ public class Composer{
         private Country country;
         private Genre genre;
         private Gender gender;
-        private Date dateOfBirth;
+        @NotEmpty
+        private Calendar dateOfBirth;
         @Nullable
-        private Date dateOfDeath;
+        private Calendar dateOfDeath;
         public Composer(){
                 this.firstName = "";
                 this.lastName = "";
@@ -26,7 +28,7 @@ public class Composer{
                 this.dateOfBirth = null;
                 this.dateOfDeath = null;
         }
-        public Composer(Integer id, String firstName, String lastName, Country country, Genre genre, Gender gender, Date dateOfBirth, Date dateOfDeath){
+        public Composer(Integer id, String firstName, String lastName, Country country, Genre genre, Gender gender, Calendar dateOfBirth, Calendar dateOfDeath){
                 this.composerId = id;
                 this.firstName = firstName;
                 this.lastName = lastName;
@@ -72,17 +74,21 @@ public class Composer{
         public void setGender(Gender gender) {
                 this.gender = gender;
         }
-        public Date getDateOfBirth() {
+        public Calendar getDateOfBirth() {
                 return dateOfBirth;
         }
-        public void setDateOfBirth(Date dateOfBirth) {
+        public void setDateOfBirth(Calendar dateOfBirth) {
                 this.dateOfBirth = dateOfBirth;
         }
         @Nullable
-        public Date getDateOfDeath() {
+        public Calendar getDateOfDeath() {
                 return dateOfDeath;
         }
-        public void setDateOfDeath(@Nullable Date dateOfDeath) {
+        public void setDateOfDeath(@Nullable Calendar dateOfDeath) {
                 this.dateOfDeath = dateOfDeath;
+        }
+        public String toString(){
+                return "Composer ID: " + this.getComposerId() + "\nFirst Name: " + this.getFirstName() + "Last Name: " + this.getLastName() + "\nCountry: " + this.getCountry()
+                        + "\nGenre: " + this.getGenre() + "\nGender: " + this.getGender() + "\nDate of Birth: " + this.getDateOfBirth() + "\nDate of Death" + this.getDateOfDeath();
         }
 }

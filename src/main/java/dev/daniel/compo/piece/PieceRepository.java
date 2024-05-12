@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface PieceRepository {
     List<Piece> findAll();
-    Optional<Piece> findPieceById();
+    Optional<Piece> findPieceById(Integer id);
     void create(Piece piece);
     void update(Piece piece, Integer id);
     void delete(Integer id);

@@ -14,33 +14,28 @@ public class ComposerController {
     public ComposerController(JdbcClientComposerRepository composerRepository){
         this.composerRepository = composerRepository;
     }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void create(@Valid @RequestBody Composer composer){
         composerRepository.create(composer);
     }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody Composer composer ,@PathVariable Integer id){
+    void update(@Valid @RequestBody Composer composer, @PathVariable Integer id){
         composerRepository.update(composer, id);
     }
-
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void delete(@PathVariable Integer id){
         composerRepository.delete(id);
     }
-
     @GetMapping("")
     List<Composer> findAll(){
         return composerRepository.findAll();
     }
-
     @GetMapping("/{id}")
-    Composer findById(@PathVariable Integer id){
-        Optional<Composer> composer = composerRepository.findById(id);
+    Composer findComposerById(@PathVariable Integer id){
+        Optional<Composer> composer = composerRepository.findComposerById(id);
         if(composer.isEmpty())
             throw new ComposerNotFoundException();
         return composer.get();

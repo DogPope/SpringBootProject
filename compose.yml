@@ -1,6 +1,6 @@
 services:
   mariadb:
-    image: 'mariadb:latest'
+    image: 'mariadb:11.3.2'
     environment:
       - 'MARIADB_DATABASE=composers'
       - 'MARIADB_PASSWORD=password'

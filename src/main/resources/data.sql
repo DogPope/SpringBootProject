@@ -4,7 +4,8 @@ INSERT INTO composer VALUES
 (3,'Chopin','Frederic','POLAND','CLASSICAL','MALE','1810-03-01','1849-10-17'),
 (4,'Ludwig','van Beethoven','GERMANY','CLASSICAL','MALE','1770-12-17','1827-03-26'),
 (5,'Clara','Schumann','GERMANY','CLASSICAL','FEMALE','1819-09-13','1896-05-20'),
-(6,'Sergei','Rachmaninoff','RUSSIA','CLASSICAL','MALE','1873-04-01','1943-03-28');
+(6,'Martha','Argerich','ARGENTINA','CLASSICAL','FEMALE','1941-06-05',NULL),
+(7,'Sergei','Rachmaninoff','RUSSIA','CLASSICAL','MALE','1873-04-01','1943-03-28');
 
 INSERT INTO piece VALUES
 (1,'Clair De Lune',1905,1),

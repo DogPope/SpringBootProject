@@ -1,0 +1,16 @@
+{
+  "piece": [
+    {
+      "piece_id": 1,
+      "title": "Clair De Lune",
+      "year": 1905,
+      "composer_id": 1
+    },
+    {
+      "piece_id": 2,
+      "title": "Marriage of Figaro",
+      "year": 1786,
+      "composer_id": 2
+    }
+  ]
+}

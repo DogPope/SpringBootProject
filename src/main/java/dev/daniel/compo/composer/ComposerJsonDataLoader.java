@@ -19,7 +19,6 @@ public class ComposerJsonDataLoader implements CommandLineRunner {
         this.composerRepository = composerRepository;
         this.objectMapper = objectMapper;
     }
-
     @Override
     public void run(String... args) throws Exception{
         if(composerRepository.count() == 0) {

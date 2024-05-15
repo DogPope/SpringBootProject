@@ -15,13 +15,13 @@ public class ComposerController {
         this.composerRepository = composerRepository;
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
+    @PostMapping
     void create(@Valid @RequestBody Composer composer){
         composerRepository.create(composer);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody Composer composer, @PathVariable Integer id){
+    public void update(@Valid @RequestBody Composer composer, @PathVariable Integer id){
         composerRepository.update(composer, id);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -34,11 +34,8 @@ public class ComposerController {
         return composerRepository.findAll();
     }
     @GetMapping("/{id}")
-    Composer findComposerById(@PathVariable Integer id){
-        Optional<Composer> composer = composerRepository.findComposerById(id);
-        if(composer.isEmpty())
-            throw new ComposerNotFoundException();
-        return composer.get();
+    Optional<Composer> findComposerById(@PathVariable int id){
+        return composerRepository.findById(id);
     }
     @GetMapping("/easteregg")
     String easterEgg(){

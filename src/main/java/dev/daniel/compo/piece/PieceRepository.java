@@ -7,7 +7,7 @@ public interface PieceRepository {
     List<Piece> findAll();
     Optional<Piece> findPieceById(Integer id);
     void create(Piece piece);
-    void update(Piece piece, Integer id);
+    void update(Piece piece, int id);
     void delete(Integer id);
     int count();
     void saveAll(List<Piece> pieces);

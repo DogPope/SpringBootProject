@@ -1,119 +1,40 @@
 # Gets all Composers
-GET http://localhost:5000/api/composers/
-
-# Create first Composer
-POST http://localhost:8080/api/composers/1
-
-{
-"composerId":1,
-"firstName":"Ludwig",
-"lastName":"van Beethoven",
-"country":"GERMANY",
-"gender":"MALE",
-"dateOfBirth":"1770-12-17T00:00:00.000+00:00",
-"dateOfDeath":"1827-03-26T00:00:00.000+00:00"
-}
-
+GET http://localhost:5000/api/composers
 ###
-
-# Create second Composer
-POST http://localhost:5000/api/composers/2
+# Create another Composer
+POST http://localhost:5000/api/composers
 Content-Type: application/json
 
 {
-"composerId":2,
-"firstName":"Claude",
-"lastName":"deBussy",
-"country":"FRANCE",
-"gender":"MALE",
-"dateOfBirth":"1862-08-22T00:00:00.000+00:00",
-"dateOfDeath":"1918-03-24T23:00:00.000+00:00"
+  "firstName": "Daniel",
+  "lastName": "Jameson",
+  "country": "IRELAND",
+  "genre": "CLASSICAL",
+  "gender": "MALE",
+  "dateOfBirth": "2022-01-03",
+  "dateOfDeath": "2024-01-01"
 }
-
 ###
-
 # Update a Composer
 PUT http://localhost:5000/api/composers/1
 Content-Type: application/json
 
 {
-"composerId":2,
-"firstName":"Claude",
-"lastName":"deBussy",
-"country":"AUSTRALIA",
-"gender":"MALE",
-"dateOfBirth":"1862-08-22T00:00:00.000+00:00",
-"dateOfDeath":"1918-03-24T23:00:00.000+00:00"
+  "firstName":"Jeff",
+  "lastName":"Goldblum",
+  "country":"AUSTRALIA",
+  "genre": "JAZZ",
+  "gender":"MALE",
+  "dateOfBirth":"1862-08-01",
+  "dateOfDeath":"1918-03-01"
 }
-
 ###
-
 # Search for Composer 1
 GET http://localhost:5000/api/composers/1
-
 ###
-
-# No ID corresponding to 69420, this should fail.
+# No ID corresponding to 69420, Does Not Work, Isn't supposed to.
 GET https://localhost:5000/api/composers/69420
-
 ###
-
-# Delete a Composer # Sorry Claude!
-DELETE http://localhost:5000/api/composers/2
-
+# Delete a Composer - Works.
+DELETE http://localhost:5000/api/composers/7
 ###
-
-GET http://localhost:5000/api/pieces/
-
-###
-# Create first Piece
-
-POST http://localhost:5000/api/pieces/1
-Content-Type: application/json
-
-{
-  "piece_id":1,
-  "title":"Clair DeLune",
-  "year":1905,
-  "composer_id":1
-}
-###
-
-# Create second Piece
-POST http://localhost:5000/api/pieces/2
-Content-Type: application/json
-
-{
-  "piece_id":2,
-  "title":"Marriage of Figaro",
-  "year":1786,
-  "composer_id":2
-}
-
-###
-
-# Update a Piece
-PUT http://localhost:5000/api/pieces/1
-Content-Type: application/json
-
-{
-  "piece_id":1,
-  "title":"Clair DeLooge",
-  "year":1905,
-  "composer_id":1
-}
-
-###
-
-# Search for Piece 1
-GET http://localhost:5000/api/pieces/1
-
-###
-
-# No ID corresponding to 69420, this should fail.
-GET https://localhost:5000/api/pieces/69420
-
-###
-
-# Delete a Composer # Sorry Mozart, you're not good enough for my API!
-DELETE http://localhost:5000/api/pieces/2

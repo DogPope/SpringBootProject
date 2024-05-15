@@ -1,0 +1,39 @@
+GET http://localhost:5000/api/pieces
+###
+# Create first Piece
+POST http://localhost:5000/api/pieces
+Content-Type: application/json
+
+{
+  "title": "Clair DeLune",
+  "year": 1905,
+  "composerId": 7
+}
+###
+# Update a Piece
+PUT http://localhost:5000/api/pieces/1
+Content-Type: application/json
+
+{
+  "title":"Pat McCrotch",
+  "year":3456,
+  "composerId": 5
+}
+###
+PUT http://localhost:5000/api/pieces/3
+Content-Type: application/json
+
+{
+  "title":"Clair DeLooge",
+  "year":3456,
+  "composerId": 3
+}
+###
+# Search for Piece 1
+GET http://localhost:5000/api/pieces/1
+###
+# No ID corresponding to 69420, this should fail.
+GET http://localhost:5000/api/pieces/69420
+###
+# Delete a Composer
+DELETE http://localhost:5000/api/pieces/3

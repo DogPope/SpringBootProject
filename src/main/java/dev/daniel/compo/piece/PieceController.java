@@ -21,7 +21,7 @@ public class PieceController {
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    public void update(@Valid @RequestBody Piece piece, @PathVariable Integer id){
+    public void update(@Valid @RequestBody Piece piece, @PathVariable int id){
         pieceRepository.update(piece, id);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)

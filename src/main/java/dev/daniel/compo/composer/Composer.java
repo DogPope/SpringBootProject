@@ -1,9 +1,13 @@
 package dev.daniel.compo.composer;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.sql.Date;
 
 public class Composer{
+        @Positive
         private Integer composerId;
+        @NotNull
         private String firstName;
         private String lastName;
         private Country country;
@@ -78,6 +82,7 @@ public class Composer{
         public void setDateOfDeath(Date dateOfDeath) {
                 this.dateOfDeath = dateOfDeath;
         }
+        @Override
         public String toString(){
                 return "Composer ID: " + this.getComposerId() + "\nFirst Name: " + this.getFirstName() + "\nLast Name: " + this.getLastName() + "\nCountry: " + this.getCountry()
                         + "\nGenre: " + this.getGenre() + "\nGender: " + this.getGender() + "\nDate of Birth: " + this.getDateOfBirth() + "\nDate of Death: " + this.getDateOfDeath();

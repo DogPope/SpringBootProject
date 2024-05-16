@@ -32,7 +32,7 @@ public class JdbcClientPieceRepository implements PieceRepository{
                 .optional();
     }
     public void create(Piece piece){
-        System.out.println(piece.toString());
+        log.info(piece.toString());
         var created = jdbcClient.sql(
                         "INSERT INTO piece(title, year, composer_id) VALUES(?,?,?)")
                 .params(List.of(piece.getTitle(), piece.getYear(), piece.getComposerId()))
@@ -40,12 +40,14 @@ public class JdbcClientPieceRepository implements PieceRepository{
         Assert.state(created == 1, "Failed to create Piece: " + piece.getTitle());
     }
     public void update(Piece piece, int id){
+        log.info(piece.toString());
         jdbcTemplate.update(
                 "UPDATE piece SET title=?, year=?, composer_id=? WHERE piece_id=?",
                 piece.getTitle(), piece.getYear(), piece.getComposerId(), id
         );
     }
     public void delete(Integer id){
+        log.info(id.toString());
         var deleted = jdbcTemplate.update("DELETE FROM piece WHERE piece_id=?", id);
         Assert.state(deleted == 1, "Failed to Delete Piece: " + id);
     }

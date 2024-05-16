@@ -3,10 +3,11 @@ package dev.daniel.compo.composer;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 
-// Couldn't find eastereggs for a while. When @RequestMapping was added to this class, the WHOLE address now rests AFTER 8080/api/composers. Hope that helps.
 @RestController
 @RequestMapping("/api/composers")
 public class ComposerController {
@@ -34,8 +35,12 @@ public class ComposerController {
         return composerRepository.findAll();
     }
     @GetMapping("/{id}")
-    Optional<Composer> findComposerById(@PathVariable int id){
-        return composerRepository.findById(id);
+    Composer findById(@PathVariable Integer id) {
+        Optional<Composer> composer = composerRepository.findById(id);
+        if(composer.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Run not found.");
+        }
+        return composer.get();
     }
     @GetMapping("/easteregg")
     String easterEgg(){

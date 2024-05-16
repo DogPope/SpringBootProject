@@ -11,26 +11,26 @@ echo
 
 curl -k -X 'POST' "${uri}/api/composers" -H 'accept: */*' -H 'Content-Type: application/json' \
 -d '{
-  "composer_id": 8,
-  "first_name": "Daniel",
-  "last_name": "Jameson",
+  "composerId": 8,
+  "firstName": "Daniel",
+  "lastName": "Jameson",
   "country": "IRELAND",
   "genre": "LITURGICAL",
   "gender": "MALE",
-  "year_of_birth": "1993-07-01",
-  "year_of_death": "2025-08-12"
+  "dateOfBirth": "1993-07-01",
+  "dateOfDeath": "2025-08-12"
 }'
 echo
 
-# Theres obviously some fucking around going on here with IDs.
-#curl -k -X 'PUT' "${uri}/api/composers/5" -H 'accept: */*' -H 'Content-Type: application/json' \
-#-d '{
-#  "first_name": "Daniel",
-#  "last_name": "Jameson",
-#  "country": "IRELAND",
-#  "genre": "LITURGICAL",
-#  "gender": "MALE",
-#  "year_of_birth": "1993-07-01",
-#  "year_of_death": "2025-08-12"
-#}'
-#echo
+
+curl -k -X 'PUT' "${uri}/api/composers/5" -H 'accept: */*' -H 'Content-Type: application/json' \
+-d '{
+  "firstName": "Daniel",
+  "lastName": "Jameson",
+  "country": "IRELAND",
+  "genre": "LITURGICAL",
+  "gender": "MALE",
+  "dateOfBirth": "1993-07-01",
+  "dateOfDeath": "2025-08-12"
+}'
+echo

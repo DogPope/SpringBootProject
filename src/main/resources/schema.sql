@@ -1,4 +1,3 @@
--- mysql -u root -p composers < schema.sql
 DROP DATABASE IF EXISTS composers;
 CREATE DATABASE composers;
 USE composers;

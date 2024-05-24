@@ -11,7 +11,7 @@ Content-Type: application/json
   "country": "IRELAND",
   "genre": "CLASSICAL",
   "gender": "MALE",
-  "dateOfBirth": "2022-01-03",
+  "dateOfBirth": "1993-07-01",
   "dateOfDeath": "2024-01-01"
 }
 ###

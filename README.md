@@ -27,6 +27,10 @@ When viewed, the browser displays the following:
 ![Picture of Browser with composer Data](Screenshots/composers.png)
 ![Picture of Browser with piece Data](Screenshots/pieces.png)
 
+## Running Tests
+To run the Integration tests accompanying this application, the Docker container has to be run separately from the main application to prevent data from being inserted prematurely.
+The database checks total entries, for example, which numbers would be out if the app was run and sample data added before testing.
+
 ## What I've learned
 - The Spring Boot Framework(Annotations, etc.)
 - Optionals in Java

@@ -44,17 +44,19 @@ public class JdbcClientComposerRepository implements ComposerRepository{
                 "SELECT * FROM composer WHERE composer_id = ?",
                 new ComposerRowMapper(), id
         );
-        System.out.println(composer.toString());
         return composer.stream().findFirst();
     }
     public void create(Composer composer){
         jdbcTemplate.update(
                 "INSERT INTO composer(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)",
                 composer.getFirstName(),composer.getLastName(),composer.getCountry().toString(),composer.getGenre().toString(),composer.getGender().toString(),composer.getDateOfBirth(), composer.getDateOfDeath());
+                log.info(composer.toString());
     }
     public void update(Composer composer, Integer id){
+        log.info(composer.toString());
         jdbcTemplate.update("UPDATE composer SET first_name=?,last_name=?,country=?,genre=?,gender=?,year_of_birth=?,year_of_death=? WHERE composer_id=?",
                 composer.getFirstName(),composer.getLastName(),composer.getCountry().toString(),composer.getGenre().toString(),composer.getGender().toString(),composer.getDateOfBirth(),composer.getDateOfDeath(), id);
+        log.info(composer.toString());
     }
     public void delete(Integer id){
         jdbcTemplate.update("DELETE FROM composer WHERE composer_id=?", id);

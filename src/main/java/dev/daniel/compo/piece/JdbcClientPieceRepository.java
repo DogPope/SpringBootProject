@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public class JdbcClientPieceRepository implements PieceRepository{
-    private static final Logger log = LoggerFactory.getLogger(ComposerRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(PieceRepository.class);
     private final JdbcClient jdbcClient;
     private final JdbcTemplate jdbcTemplate;
     public JdbcClientPieceRepository(JdbcClient jdbcClient, JdbcTemplate jdbcTemplate){
@@ -40,14 +40,13 @@ public class JdbcClientPieceRepository implements PieceRepository{
         Assert.state(created == 1, "Failed to create Piece: " + piece.getTitle());
     }
     public void update(Piece piece, int id){
-        log.info(piece.toString());
         jdbcTemplate.update(
                 "UPDATE piece SET title=?, year=?, composer_id=? WHERE piece_id=?",
                 piece.getTitle(), piece.getYear(), piece.getComposerId(), id
         );
+        log.info(piece.toString());
     }
     public void delete(Integer id){
-        log.info(id.toString());
         var deleted = jdbcTemplate.update("DELETE FROM piece WHERE piece_id=?", id);
         Assert.state(deleted == 1, "Failed to Delete Piece: " + id);
     }

@@ -4,7 +4,6 @@ import dev.daniel.compo.composer.Composer;
 import dev.daniel.compo.composer.Country;
 import dev.daniel.compo.composer.Gender;
 import dev.daniel.compo.composer.Genre;
-import dev.daniel.compo.piece.Piece;
 
 import java.sql.Date;
 

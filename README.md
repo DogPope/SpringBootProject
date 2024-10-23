@@ -2,6 +2,9 @@
 
 # ***IMPORTANT: TO STOP THE MYSQL PROCESS ON 3306, FOLLOW [THIS THREAD](https://stackoverflow.com/questions/68065284/specified-port-3306-is-already-in-use-when-installing-mysql) ON STACK OVERFLOW. Use Windows key + 'R', Find services.msc and stop mysql from there.***
 
+## Links / Resources
+- [PlantUML Reference Guide](https://pdf.plantuml.net/1.2020.22/PlantUML_Language_Reference_Guide_en.pdf)
+
 ## Project Description
 This project is an application made in the Spring Boot Framework for the Java Programming language.
 It is a REST API using the CRUD repository format. The API handles data on piano composers and various pieces

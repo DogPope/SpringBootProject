@@ -1,0 +1,123 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ComposerRepository
+class Composer
+class Piece
+class JdbcClientComposerRepository
+enum Country
+enum Genre
+enum Gender
+
+Composer o-- Piece
+Country *-- Composer
+Genre *-- Composer
+Gender *-- Composer
+JdbcClientComposerRepository ..> ComposerRepository
+JdbcClientPieceRepository ..> PieceRepository
+
+interface ComposerRepository {
+--Methods--
+List<Composer> findAll()
+Optional<Composer> findById(Integer composerId)
+void create(Composer composer)
+void update(Composer composer, Integer composerId)
+void delete(Integer composerId)
+int count()
+void saveAll(List<Composer> composer)
+}
+
+interface PieceRepository {
+--Methods--
+List<Piece> findAll()
+Optional<Piece> findById(Integer pieceId)
+void create(Piece piece)
+void update(Piece piece, Integer pieceId)
+void delete(Integer pieceId)
+int count()
+void saveAll(List<Piece> piece)
+}
+
+class JdbcClientPieceRepository {
+- {static} Logger: log pieceRepository
+- JdbcTemplate: jdbcTemplate
+- JdbcClient: jdbcClient
+--Methods--
++ List<Piece> findAll()
++ Optional<Piece> findById(Integer pieceId)
++ void create(Piece piece)
++ void update(Piece piece, Integer pieceId)
++ void delete(Integer pieceId)
++ int count()
++ void saveAll(List<Piece> piece)
+}
+
+class JdbcClientComposerRepository {
+- {static} Logger: log composerRepository
+- JdbcTemplate: jdbcTemplate
+- JdbcClient: jdbcClient
+--Methods--
++ List<Composer> findAll()
++ Optional<Composer> findById(Integer composerId)
++ void create(Composer composer)
++ void update(Composer composer, Integer composerId)
++ void delete(Integer composerId)
++ int count()
++ void saveAll(List<Composer> composer)
+}
+
+class Piece {
+--Attributes--
+- Integer: pieceId
+- String: title
+- String: year
+- Integer: composerId
+--Methods--
++ Integer: getComposerId()
++ void: setComposerId()
+(getters, setters)
++ String: toString()
+}
+
+class Composer {
+--Attributes--
+- Integer: composerId
+- String: firstName
+- String: lastName
+- Country: country
+- Genre: genre
+- Gender: gender
+- Date: dateOfBirth
+- Date: dateOfDeath
+--Methods--
++ Integer: getComposerId()
++ void: setComposerId()
+(getters, setters)
++ String: toString()
+}
+
+enum Gender {
+FEMALE
+MALE
+}
+
+enum Country {
+--Attributes--
+- String: countryCode
+- String: country
+- Continent: continent
+--Countries--
+Afghanistan, AF, ASIA
+...
+Zimbabwe, ZW, AFRICA
+}
+
+enum Genre {
+CLASSICAL
+JAZZ
+POP
+LITURGICAL
+THEATRE
+BLUES
+}
+@enduml

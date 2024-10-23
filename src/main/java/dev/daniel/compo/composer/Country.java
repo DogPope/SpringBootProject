@@ -1,9 +1,9 @@
 package dev.daniel.compo.composer;
 
 public enum Country {
+    AFGHANISTAN("AF", "Afghanistan", Continent.ASIA),
     ALBANIA("AL", "Albania", Continent.EUROPE),
     ANDORRA("AN", "Andorra", Continent.EUROPE),
-    AFGHANISTAN("AF", "Afghanistan", Continent.ASIA),
     ALGERIA("DZ", "Algeria", Continent.AFRICA),
     ANGOLA("AO", "Angola", Continent.AFRICA),
     ARGENTINA("AR", "Argentina", Continent.SOUTH_AMERICA),

@@ -33,14 +33,3 @@ When viewed, the browser displays the following:
 ## Running Tests
 To run the Integration tests accompanying this application, the Docker container has to be run separately from the main application to prevent data from being inserted prematurely.
 The database checks total entries, for example, which numbers would be out if the app was run and sample data added before testing.
-
-## What I've learned
-- The Spring Boot Framework(Annotations, etc.)
-- Optionals in Java
-- Records in Java
-- How to hide Easter eggs in your API.
-- Writing a Bash script to test the API endpoints.
-- Java Jakarta validation library.
-- Convention over Configuration layouts.
-- Spring Boot Database Integration in this case, MariaDB.
-- Application Properties - [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)

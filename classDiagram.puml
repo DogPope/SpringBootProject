@@ -10,6 +10,8 @@ enum Genre
 enum Gender
 
 Composer o-- Piece
+Composer o-- ComposerRepository
+Piece o-- PieceRepository
 Country *-- Composer
 Genre *-- Composer
 Gender *-- Composer
@@ -91,7 +93,7 @@ class Composer {
 - Date: dateOfDeath
 --Methods--
 + Integer: getComposerId()
-+ void: setComposerId()
++ void: setComposerId(Integer composerId)
 (getters, setters)
 + String: toString()
 }

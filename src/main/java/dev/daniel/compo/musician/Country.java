@@ -1,4 +1,4 @@
-package dev.daniel.compo.composer;
+package dev.daniel.compo.musician;
 
 public enum Country {
     AFGHANISTAN("AF", "Afghanistan", Continent.ASIA),

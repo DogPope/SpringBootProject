@@ -2,7 +2,7 @@ services:
   mariadb:
     image: 'mariadb:11.3.2'
     environment:
-      - 'MARIADB_DATABASE=composers'
+      - 'MARIADB_DATABASE=musicians'
       - 'MARIADB_PASSWORD=password'
       - 'MARIADB_ROOT_PASSWORD=verypassword'
       - 'MARIADB_USER=daniel'

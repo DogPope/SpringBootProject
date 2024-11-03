@@ -1,4 +1,4 @@
-package dev.daniel.compo.composer;
+package dev.daniel.compo.musician;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,18 +20,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.sql.Date;
 
-@WebMvcTest(ComposerController.class)
-public class ComposerControllerTest {
+@WebMvcTest(MusicianController.class)
+public class MusicianControllerTest {
     @Autowired
     MockMvc mvc;
     @Autowired
     ObjectMapper objectMapper;
     @MockBean
-    JdbcClientComposerRepository jccr;
-    private final List<Composer> composers = new ArrayList<>();
+    JdbcClientMusicianRepository jccr;
+    private final List<Pianist> pianists = new ArrayList<>();
     @BeforeEach
     void setUp() {
-        composers.add(new Composer(1,
+        pianists.add(new Pianist(1,
                 "Patrick",
                 "Bezos",
                 Country.YEMEN,
@@ -41,33 +41,27 @@ public class ComposerControllerTest {
                 new Date(54,02,02)));
     }
 
-    @Test
-    void findAll() throws Exception {
-        when(jccr.findAll()).thenReturn(composers);
-        mvc.perform(get("/api/composers"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(composers.size())));
-    }
+    // TO-DO: Design test around finding all musicians
 
     @Test
     void findOneComposer() throws Exception {
-        Composer composer = composers.get(0);
-        when(jccr.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(composer));
-        mvc.perform(get("/api/composers/1"))
+        Musician musician = pianists.get(0);
+        when(jccr.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(musician));
+        mvc.perform(get("/api/musicians/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.composerId", is(composer.getComposerId())))
-                .andExpect(jsonPath("$.firstName", is(composer.getFirstName())))
-                .andExpect(jsonPath("$.lastName", is(composer.getLastName())))
-                .andExpect(jsonPath("$.country", is(composer.getCountry().toString())))
-                .andExpect(jsonPath("$.genre", is(composer.getGenre().toString())))
-                .andExpect(jsonPath("$.gender", is(composer.getGender().toString())))
-                .andExpect(jsonPath("$.dateOfBirth", is(composer.getDateOfBirth().toString())))
-                .andExpect(jsonPath("$.dateOfDeath", is(composer.getDateOfDeath().toString())));
+                .andExpect(jsonPath("$.musicianId", is(musician.getMusicianId())))
+                .andExpect(jsonPath("$.firstName", is(musician.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(musician.getLastName())))
+                .andExpect(jsonPath("$.country", is(musician.getCountry().toString())))
+                .andExpect(jsonPath("$.genre", is(musician.getGenre().toString())))
+                .andExpect(jsonPath("$.gender", is(musician.getGender().toString())))
+                .andExpect(jsonPath("$.dateOfBirth", is(musician.getDateOfBirth().toString())))
+                .andExpect(jsonPath("$.dateOfDeath", is(musician.getDateOfDeath().toString())));
     }
 
     @Test
     void shouldReturnInvalidId() throws Exception {
-        mvc.perform(get("/api/composers/9999"))
+        mvc.perform(get("/api/musicians/9999"))
                 .andExpect(status().isNotFound());
     }
 

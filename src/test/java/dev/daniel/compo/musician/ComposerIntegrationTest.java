@@ -1,4 +1,4 @@
-package dev.daniel.compo.composer;
+package dev.daniel.compo.musician;
 
 import dev.daniel.compo.Application;
 import dev.daniel.compo.TestDataUtil;
@@ -20,9 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ComposerIntegrationTest {
     @MockBean
-    JdbcClientComposerRepository jccr;
+    JdbcClientMusicianRepository jccr;
     @Autowired
-    public ComposerIntegrationTest(JdbcClientComposerRepository jccr){
+    public ComposerIntegrationTest(JdbcClientMusicianRepository jccr){
         this.jccr = jccr;
     }
     /*
@@ -32,43 +32,43 @@ public class ComposerIntegrationTest {
     * */
     @Test
     public void TestComposerCreation(){
-        Composer composer = TestDataUtil.createComposerA();
-        composer.setComposerId(1);
-        jccr.create(composer);
-        Optional<Composer> result = jccr.findById(composer.getComposerId());
+        Pianist pianist = TestDataUtil.createPianistA();
+        pianist.setMusicianId(1);
+        jccr.create(pianist);
+        Optional<Musician> result = jccr.findById(pianist.getMusicianId());
         assertThat(result).isPresent();
-        assertThat(result.get().toString()).isEqualTo(composer.toString());
+        assertThat(result.get().toString()).isEqualTo(pianist.toString());
     }
     @Test
     public void testMultipleComposersCreatedAndCalled() {
-        Composer composerA = TestDataUtil.createComposerA();
-        jccr.create(composerA);
-        Composer composerB = TestDataUtil.createComposerB();
-        jccr.create(composerB);
-        Composer composerC = TestDataUtil.createComposerC();
-        jccr.create(composerC);
+        Musician musicianA = TestDataUtil.createPianistA();
+        jccr.create(musicianA);
+        Musician musicianB = TestDataUtil.createPianistB();
+        jccr.create(musicianB);
+        Musician musicianC = TestDataUtil.createPianistC();
+        jccr.create(musicianC);
 
-        List<Composer> result = jccr.findAll();
+        List<Musician> result = jccr.findAll();
         assertThat(result.toString())
                 .hasSize(432).
-                contains(composerA.toString(), composerB.toString(), composerC.toString());
+                contains(musicianA.toString(), musicianB.toString(), musicianC.toString());
     }
     @Test
     public void testComposerUpdate() {
-        Composer composerA = TestDataUtil.createComposerA();
-        jccr.create(composerA);
-        composerA.setFirstName("UPDATED");
-        jccr.create(composerA);
-        Optional<Composer> result = jccr.findById(composerA.getComposerId());
+        Musician pianistA = TestDataUtil.createPianistA();
+        jccr.create(pianistA);
+        pianistA.setFirstName("UPDATED");
+        jccr.create(pianistA);
+        Optional<Musician> result = jccr.findById(pianistA.getMusicianId());
         assertThat(result).isPresent();
-        assertThat(result.get().toString()).isEqualTo(composerA.toString());
+        assertThat(result.get().toString()).isEqualTo(pianistA.toString());
     }
     @Test
     public void testComposerDelete() {
-        Composer composerA = TestDataUtil.createComposerA();
-        jccr.create(composerA);
-        jccr.delete(composerA.getComposerId());
-        Optional<Composer> result = jccr.findById(composerA.getComposerId());
+        Pianist pianistA = TestDataUtil.createPianistA();
+        jccr.create(pianistA);
+        jccr.delete(pianistA.getMusicianId());
+        Optional<Musician> result = jccr.findById(pianistA.getMusicianId());
         assertThat(result).isEmpty();
     }
 }

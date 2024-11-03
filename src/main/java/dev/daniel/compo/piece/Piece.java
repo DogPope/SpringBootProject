@@ -1,9 +1,7 @@
 package dev.daniel.compo.piece;
 
-import dev.daniel.compo.composer.Composer;
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import dev.daniel.compo.musician.Composer;
+
 public class Piece{
         private int pieceId;
         private String title;

@@ -1,4 +1,4 @@
-package dev.daniel.compo.composer;
+package dev.daniel.compo.musician;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,19 +14,19 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class JdbcComposerRepositoryTests {
+public class JdbcMusicianRepositoryTests {
     @Mock
     private JdbcTemplate jdbcTemplate;
     @Mock
     private JdbcClient jdbcClient;
     @InjectMocks
-    private JdbcClientComposerRepository jccr;
+    private JdbcClientMusicianRepository jccr;
     @Test
     public void testCreateComposerSQL() {
-        Composer composer1 = new Composer(
+        Musician musician1 = new Pianist(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01)
         );
-        jccr.create(composer1);
+        jccr.create(musician1);
         verify(jdbcTemplate).update(
                 eq("INSERT INTO composer(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)"),
                 eq("Jeff"), eq("OShea"),eq(Country.ANDORRA.toString()),eq(Genre.THEATRE.toString()),eq(Gender.MALE.toString()),eq(new Date(1992,00,01)),eq(new Date(1995,00,01))
@@ -34,22 +34,22 @@ public class JdbcComposerRepositoryTests {
     }
     @Test
     public void testUpdateComposerSQL() {
-        Composer composer1 = new Composer(
+        Musician musician1 = new Pianist(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01)
         );
-        jccr.update(composer1, composer1.getComposerId());
+        jccr.update(musician1, musician1.getMusicianId());
         verify(jdbcTemplate).update("UPDATE composer SET first_name=?,last_name=?,country=?,genre=?,gender=?,year_of_birth=?,year_of_death=? WHERE composer_id=?",
-                composer1.getFirstName(),composer1.getLastName(),composer1.getCountry().toString(),composer1.getGenre().toString(),composer1.getGender().toString(),composer1.getDateOfBirth(),composer1.getDateOfDeath(),composer1.getComposerId());
+                musician1.getFirstName(),musician1.getLastName(),musician1.getCountry().toString(),musician1.getGenre().toString(),musician1.getGender().toString(),musician1.getDateOfBirth(),musician1.getDateOfDeath(),musician1.getMusicianId());
     }
     @Test
     public void testFindByIdSQL() {
-        Composer composer1 = new Composer(
+        Musician musician1 = new Pianist(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01)
         );
-        jccr.findById(composer1.getComposerId());
+        jccr.findById(musician1.getMusicianId());
         verify(jdbcTemplate).query(
                 eq("SELECT * FROM composer WHERE composer_id = ?"),
-                ArgumentMatchers.<JdbcClientComposerRepository.ComposerRowMapper>any(),
+                ArgumentMatchers.<JdbcClientMusicianRepository.MusicianRowMapper>any(),
                 eq(10)
         );
     }

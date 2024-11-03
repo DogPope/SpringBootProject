@@ -1,6 +1,6 @@
 package dev.daniel.compo.piece;
 
-import dev.daniel.compo.composer.ComposerNotFoundException;
+import dev.daniel.compo.musician.MusicianNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class PieceController {
     Piece findPieceById(@PathVariable Integer id){
         Optional<Piece> piece = pieceRepository.findPieceById(id);
         if(piece.isEmpty())
-            throw new ComposerNotFoundException();
+            throw new MusicianNotFoundException();
         return piece.get();
     }
 }

@@ -1,6 +1,5 @@
 package dev.daniel.compo.piece;
 
-import dev.daniel.compo.composer.ComposerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;

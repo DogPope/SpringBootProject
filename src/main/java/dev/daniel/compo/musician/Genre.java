@@ -1,4 +1,4 @@
-package dev.daniel.compo.composer;
+package dev.daniel.compo.musician;
 
 public enum Genre {
     CLASSICAL, JAZZ, POP, LITURGICAL, THEATRE, BLUES

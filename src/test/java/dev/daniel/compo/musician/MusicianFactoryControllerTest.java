@@ -1,6 +1,5 @@
 package dev.daniel.compo.musician;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,32 +20,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.sql.Date;
 
 @WebMvcTest(MusicianController.class)
-public class MusicianControllerTest {
+public class MusicianFactoryControllerTest {
     @Autowired
     MockMvc mvc;
-    @Autowired
-    ObjectMapper objectMapper;
     @MockBean
-    JdbcClientMusicianRepository jccr;
-    private final List<Pianist> pianists = new ArrayList<>();
+    JdbcClientMusicianRepository jcmr;
+    private final List<Musician> pianists = new ArrayList<>();
     @BeforeEach
     void setUp() {
-        pianists.add(new Pianist(1,
+        List<Instrument> instruments = new ArrayList<>();
+        instruments.add(Instrument.PIPE);
+        pianists.add(new Musician(1,
                 "Patrick",
                 "Bezos",
                 Country.YEMEN,
                 Genre.POP,
                 Gender.MALE,
                 new Date(54,01,01),
-                new Date(54,02,02)));
+                new Date(54,02,02),
+                instruments
+                )
+        );
     }
 
-    // TO-DO: Design test around finding all musicians
-
     @Test
-    void findOneComposer() throws Exception {
-        Musician musician = pianists.get(0);
-        when(jccr.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(musician));
+    void findOneMusician() throws Exception {
+        MusicianFactory musician = pianists.getFirst();
+        when(jcmr.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(musician));
         mvc.perform(get("/api/musicians/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.musicianId", is(musician.getMusicianId())))
@@ -56,7 +56,8 @@ public class MusicianControllerTest {
                 .andExpect(jsonPath("$.genre", is(musician.getGenre().toString())))
                 .andExpect(jsonPath("$.gender", is(musician.getGender().toString())))
                 .andExpect(jsonPath("$.dateOfBirth", is(musician.getDateOfBirth().toString())))
-                .andExpect(jsonPath("$.dateOfDeath", is(musician.getDateOfDeath().toString())));
+                .andExpect(jsonPath("$.dateOfDeath", is(musician.getDateOfDeath().toString())))
+                .andExpect(jsonPath("$.instruments",is(musician.getInstruments())));// Not sure about this one, as the database wasn't done first.
     }
 
     @Test
@@ -65,5 +66,4 @@ public class MusicianControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    // I don't think there's any need to flesh this out too much. The HTTP files do the same job, as does the bash script.
 }

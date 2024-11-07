@@ -17,12 +17,12 @@ public class MusicianController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    void create(@Valid @RequestBody Musician musician){
+    void create(@Valid @RequestBody MusicianFactory musician){
         musicianRepository.create(musician);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    public void update(@Valid @RequestBody Musician musician, @PathVariable Integer id){
+    public void update(@Valid @RequestBody MusicianFactory musician, @PathVariable Integer id){
         musicianRepository.update(musician, id);
     }
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -31,14 +31,14 @@ public class MusicianController {
         musicianRepository.delete(id);
     }
     @GetMapping("")
-    List<Musician> findAll(){
+    List<MusicianFactory> findAll(){
         return musicianRepository.findAll();
     }
     @GetMapping("/{id}")
-    Musician findById(@PathVariable Integer id) {
-        Optional<Musician> musician = musicianRepository.findById(id);
+    MusicianFactory findById(@PathVariable Integer id) {
+        Optional<MusicianFactory> musician = musicianRepository.findById(id);
         if(musician.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Run not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Musician not found.");
         }
         return musician.get();
     }

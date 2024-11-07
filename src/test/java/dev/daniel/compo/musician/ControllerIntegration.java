@@ -28,8 +28,8 @@ public class ControllerIntegration {
 
     @Test
     void findAllMusicians() {
-        List<Musician> musicians = restClient.get()
-                .uri("/api/composers")
+        List<MusicianFactory> musicians = restClient.get()
+                .uri("/api/musicians")
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {});
         assertEquals(7, musicians.size());
@@ -37,10 +37,10 @@ public class ControllerIntegration {
 
     @Test
     void shouldFindRunById() {
-        Musician musician = restClient.get()
-                .uri("/api/composers/1")
+        MusicianFactory musician = restClient.get()
+                .uri("/api/musicians/1")
                 .retrieve()
-                .body(Musician.class);
+                .body(MusicianFactory.class);
 
         assertAll(
                 () -> assertEquals(1, musician.getMusicianId()),
@@ -50,12 +50,13 @@ public class ControllerIntegration {
                 () -> assertEquals("CLASSICAL", musician.getGenre().toString()),
                 () -> assertEquals("MALE", musician.getGender().toString()),
                 () -> assertEquals("1862-08-22", musician.getDateOfBirth().toString()),
-                () -> assertEquals("1918-03-25", musician.getDateOfDeath().toString()));
+                () -> assertEquals("1918-03-25", musician.getDateOfDeath().toString()),
+                () -> assertEquals("ACCORDIAN",musician.getInstruments().toString())); // This still needs to be changed.
     }
 
     @Test
     void createMusician() {
-        Musician musician = TestDataUtil.createPianistA();
+        MusicianFactory musician = TestDataUtil.createPianistA();
 
         ResponseEntity<Void> newMusician = restClient.post()
                 .uri("/api/musicians")
@@ -68,7 +69,7 @@ public class ControllerIntegration {
 
     @Test
     void updatedMusician() {
-        Musician musician = restClient.get().uri("/api/musicians/1").retrieve().body(Musician.class);
+        MusicianFactory musician = restClient.get().uri("/api/musicians/1").retrieve().body(MusicianFactory.class);
 
         ResponseEntity<Void> updatedMusician = restClient.put()
                 .uri("/api/musicians/1")

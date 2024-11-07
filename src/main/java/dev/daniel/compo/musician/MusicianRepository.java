@@ -7,11 +7,11 @@ import java.util.Optional;
 
 @Repository
 public interface MusicianRepository {
-    List<Musician> findAll();
-    Optional<Musician> findById(Integer id);
-    void create(Musician musician);
-    void update(Musician musician, Integer id);
+    List<MusicianFactory> findAll();
+    Optional<MusicianFactory> findById(Integer id);
+    void create(MusicianFactory musician);
+    void update(MusicianFactory musician, Integer id);
     void delete(Integer id);
     int count();
-    void saveAll(List<Musician> musician);
+    void saveAll(List<MusicianFactory> musician);
 }

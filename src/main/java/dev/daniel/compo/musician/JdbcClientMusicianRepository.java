@@ -22,10 +22,10 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
         this.jdbcClient = jdbcClient;
         this.jdbcTemplate = jdbcTemplate;
     }
-    public List<Musician> findAll() {
-        return jdbcTemplate.query("SELECT * FROM composer",
+    public List<MusicianFactory> findAll() {
+        return jdbcTemplate.query("SELECT * FROM musician",
                 (rs, rowNum) -> {
-                    Musician musician = new Pianist();
+                    MusicianFactory musician = new Musician();
                     musician.setMusicianId(rs.getInt("musician_id"));
                     musician.setFirstName(rs.getString("first_name"));
                     musician.setLastName(rs.getString("last_name"));
@@ -38,40 +38,40 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
                 });
     }
     @Override
-    public Optional<Musician> findById(Integer id) {
-        List<Musician> composer = jdbcTemplate.query(
-                "SELECT * FROM composer WHERE composer_id = ?",
+    public Optional<MusicianFactory> findById(Integer id) {
+        List<MusicianFactory> musician = jdbcTemplate.query(
+                "SELECT * FROM musician WHERE musician_id = ?",
                 new MusicianRowMapper(), id
         );
-        return composer.stream().findFirst();
+        return musician.stream().findFirst();
     }
-    public void create(Musician composer){
+    public void create(MusicianFactory musician){
         jdbcTemplate.update(
-                "INSERT INTO composer(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)",
-                composer.getFirstName(),composer.getLastName(),composer.getCountry().toString(),composer.getGenre().toString(),composer.getGender().toString(),composer.getDateOfBirth(), composer.getDateOfDeath());
-                log.info(composer.toString());
+                "INSERT INTO musician(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)",
+                musician.getFirstName(),musician.getLastName(),musician.getCountry().toString(),musician.getGenre().toString(),musician.getGender().toString(),musician.getDateOfBirth(), musician.getDateOfDeath());
+                log.info(musician.toString());
     }
-    public void update(Musician composer, Integer id){
-        log.info(composer.toString());
-        jdbcTemplate.update("UPDATE composer SET first_name=?,last_name=?,country=?,genre=?,gender=?,year_of_birth=?,year_of_death=? WHERE composer_id=?",
-                composer.getFirstName(),composer.getLastName(),composer.getCountry().toString(),composer.getGenre().toString(),composer.getGender().toString(),composer.getDateOfBirth(),composer.getDateOfDeath(), id);
-        log.info(composer.toString());
+    public void update(MusicianFactory musician, Integer id){
+        log.info(musician.toString());
+        jdbcTemplate.update("UPDATE musician SET first_name=?,last_name=?,country=?,genre=?,gender=?,year_of_birth=?,year_of_death=? WHERE musician_id=?",
+                musician.getFirstName(),musician.getLastName(),musician.getCountry().toString(),musician.getGenre().toString(),musician.getGender().toString(),musician.getDateOfBirth(),musician.getDateOfDeath(), id);
+        log.info(musician.toString());
     }
     public void delete(Integer id){
-        jdbcTemplate.update("DELETE FROM composer WHERE composer_id=?", id);
+        jdbcTemplate.update("DELETE FROM musician WHERE musician_id=?", id);
     }
     public int count() {
-        return jdbcClient.sql("SELECT COUNT(*) FROM composer").query().listOfRows().size();
+        return jdbcClient.sql("SELECT COUNT(*) FROM musician").query().listOfRows().size();
     }
-    public void saveAll(List<Musician> composers){
-        composers.forEach(this::create);
+    public void saveAll(List<MusicianFactory> musicians){
+        musicians.forEach(this::create);
     }
 
-    public static class MusicianRowMapper implements RowMapper<Musician> {
+    public static class MusicianRowMapper implements RowMapper<MusicianFactory> {
         @Override
-        public Musician mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Musician musician = new Pianist();
-            musician.setMusicianId(rs.getInt("composer_id"));
+        public MusicianFactory mapRow(ResultSet rs, int rowNum) throws SQLException {
+            MusicianFactory musician = new Musician();
+            musician.setMusicianId(rs.getInt("musician_id"));
             musician.setFirstName(rs.getString("first_name"));
             musician.setLastName(rs.getString("last_name"));
             musician.setCountry(Country.valueOf(rs.getString("country")));

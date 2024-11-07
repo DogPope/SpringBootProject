@@ -18,12 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = Application.class)
 @ExtendWith(MockitoExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ComposerIntegrationTest {
+public class MusicianIntegrationTest {
     @MockBean
-    JdbcClientMusicianRepository jccr;
+    JdbcClientMusicianRepository jcmr;
     @Autowired
-    public ComposerIntegrationTest(JdbcClientMusicianRepository jccr){
-        this.jccr = jccr;
+    public MusicianIntegrationTest(JdbcClientMusicianRepository jcmr){
+        this.jcmr = jcmr;
     }
     /*
     * The Methods in this class WILL work, but the database cannot be initialised beforehand, so that the API is empty upon initialization.
@@ -31,44 +31,44 @@ public class ComposerIntegrationTest {
     * delete the /target folder for good measure, and these tests will pass.
     * */
     @Test
-    public void TestComposerCreation(){
-        Pianist pianist = TestDataUtil.createPianistA();
+    public void TestMusicianCreation(){
+        Musician pianist = TestDataUtil.createPianistA();
         pianist.setMusicianId(1);
-        jccr.create(pianist);
-        Optional<Musician> result = jccr.findById(pianist.getMusicianId());
+        jcmr.create(pianist);
+        Optional<MusicianFactory> result = jcmr.findById(pianist.getMusicianId());
         assertThat(result).isPresent();
         assertThat(result.get().toString()).isEqualTo(pianist.toString());
     }
     @Test
-    public void testMultipleComposersCreatedAndCalled() {
-        Musician musicianA = TestDataUtil.createPianistA();
-        jccr.create(musicianA);
-        Musician musicianB = TestDataUtil.createPianistB();
-        jccr.create(musicianB);
-        Musician musicianC = TestDataUtil.createPianistC();
-        jccr.create(musicianC);
+    public void testMultipleMusicianCreatedAndCalled() {
+        MusicianFactory musicianA = TestDataUtil.createPianistA();
+        jcmr.create(musicianA);
+        MusicianFactory musicianB = TestDataUtil.createPianistB();
+        jcmr.create(musicianB);
+        MusicianFactory musicianC = TestDataUtil.createPianistC();
+        jcmr.create(musicianC);
 
-        List<Musician> result = jccr.findAll();
+        List<MusicianFactory> result = jcmr.findAll();
         assertThat(result.toString())
                 .hasSize(432).
                 contains(musicianA.toString(), musicianB.toString(), musicianC.toString());
     }
     @Test
-    public void testComposerUpdate() {
-        Musician pianistA = TestDataUtil.createPianistA();
-        jccr.create(pianistA);
+    public void testMusicianUpdate() {
+        MusicianFactory pianistA = TestDataUtil.createPianistA();
+        jcmr.create(pianistA);
         pianistA.setFirstName("UPDATED");
-        jccr.create(pianistA);
-        Optional<Musician> result = jccr.findById(pianistA.getMusicianId());
+        jcmr.create(pianistA);
+        Optional<MusicianFactory> result = jcmr.findById(pianistA.getMusicianId());
         assertThat(result).isPresent();
         assertThat(result.get().toString()).isEqualTo(pianistA.toString());
     }
     @Test
-    public void testComposerDelete() {
-        Pianist pianistA = TestDataUtil.createPianistA();
-        jccr.create(pianistA);
-        jccr.delete(pianistA.getMusicianId());
-        Optional<Musician> result = jccr.findById(pianistA.getMusicianId());
+    public void testMusicianDelete() {
+        Musician pianistA = TestDataUtil.createPianistA();
+        jcmr.create(pianistA);
+        jcmr.delete(pianistA.getMusicianId());
+        Optional<MusicianFactory> result = jcmr.findById(pianistA.getMusicianId());
         assertThat(result).isEmpty();
     }
 }

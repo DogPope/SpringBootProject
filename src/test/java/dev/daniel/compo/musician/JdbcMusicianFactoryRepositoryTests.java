@@ -1,5 +1,6 @@
 package dev.daniel.compo.musician;
 
+import dev.daniel.compo.instrument.Instrument;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -7,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class JdbcMusicianFactoryRepositoryTests {
     @Test
     public void testCreateMusicianSQL() {
         List<Instrument> instruments = new ArrayList<>();
-        instruments.add(Instrument.ACCORDION);
-        MusicianFactory musician1 = new Musician(
+        instruments.add(new Instrument(7,"BAGPIPES"));
+        Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments
         );
         jcmr.create(musician1);
@@ -38,8 +38,8 @@ public class JdbcMusicianFactoryRepositoryTests {
     @Test
     public void testUpdateMusicianSQL() {
         List<Instrument> instruments = new ArrayList<>();
-        instruments.add(Instrument.ACCORDION);
-        MusicianFactory musician1 = new Musician(
+        instruments.add(new Instrument(7,"BAGPIPES"));
+        Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments
         );
         jcmr.update(musician1, musician1.getMusicianId());
@@ -49,8 +49,8 @@ public class JdbcMusicianFactoryRepositoryTests {
     @Test
     public void testFindByIdSQL() {
         List<Instrument> instruments = new ArrayList<>();
-        instruments.add(Instrument.ACCORDION);
-        MusicianFactory musician1 = new Musician(
+        instruments.add(new Instrument(7,"BAGPIPES"));
+        Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments
         );
         jcmr.findById(musician1.getMusicianId());

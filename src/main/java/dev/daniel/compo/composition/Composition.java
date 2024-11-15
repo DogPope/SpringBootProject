@@ -1,27 +1,27 @@
 package dev.daniel.compo.composition;
 
 public class Composition{
-    private int pieceId;
+    private Integer compositionId;
     private String title;
     private Integer year;
     private Integer musicianId;
     public Composition(){
-        this.pieceId = 0;
+        this.compositionId = 0;
         this.year = null;
         this.title = "";
         this.musicianId = 0;
     }
-    public Composition(int pieceId, String title, Integer year, Integer musicianId){
-        this.pieceId = pieceId;
+    public Composition(int compositionId, String title, Integer year, Integer musicianId){
+        this.compositionId = compositionId;
         this.title = title;
         this.year = year;
         this.musicianId = musicianId;
     }
-    public int getPieceId() {
-        return pieceId;
+    public int getCompositionId() {
+        return compositionId;
     }
-    public void setPieceId(int pieceId) {
-        this.pieceId = pieceId;
+    public void setCompositionId(Integer compositionId) {
+        this.compositionId = compositionId;
     }
     public String getTitle() {
         return title;
@@ -42,6 +42,6 @@ public class Composition{
         this.musicianId = musicianId;
     }
     public String toString(){
-        return "Piece ID: " + this.getPieceId() + "\nTitle: " + this.getTitle() + "\nYear: " + this.getYear() + "\nComposer ID: " + this.getMusicianId();
+        return "Composition ID: " + this.getCompositionId() + "\nTitle: " + this.getTitle() + "\nYear: " + this.getYear() + "\nMusician ID: " + this.getMusicianId();
     }
 }

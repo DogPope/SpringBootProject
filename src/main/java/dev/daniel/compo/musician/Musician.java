@@ -1,7 +1,10 @@
 package dev.daniel.compo.musician;
 
+import dev.daniel.compo.instrument.Instrument;
+
 import java.sql.Date;
 import java.util.List;
+
 
 public class Musician extends MusicianFactory {
     public Musician(){

@@ -1,5 +1,6 @@
 package dev.daniel.compo.musician;
 
+import dev.daniel.compo.instrument.Instrument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class MusicianFactoryControllerTest {
     @BeforeEach
     void setUp() {
         List<Instrument> instruments = new ArrayList<>();
-        instruments.add(Instrument.PIPE);
+        instruments.add(new Instrument(3,"PIANO"));
         pianists.add(new Musician(1,
                 "Patrick",
                 "Bezos",
@@ -45,7 +46,7 @@ public class MusicianFactoryControllerTest {
 
     @Test
     void findOneMusician() throws Exception {
-        MusicianFactory musician = pianists.getFirst();
+        Musician musician = pianists.getFirst();
         when(jcmr.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.of(musician));
         mvc.perform(get("/api/musicians/1"))
                 .andExpect(status().isOk())

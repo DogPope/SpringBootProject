@@ -3,12 +3,12 @@
 # ***IMPORTANT: TO STOP THE MYSQL PROCESS ON 3306, FOLLOW [THIS THREAD](https://stackoverflow.com/questions/68065284/specified-port-3306-is-already-in-use-when-installing-mysql) ON STACK OVERFLOW. Use Windows key + 'R', Find services.msc and stop mysql from there.***
 
 # To-Do List
-- [ ] Tie Instruments to Array List and implement instruments either via Triggers or Programmatically.
+- [x] Tie Instruments to Array List and implement instruments either via Triggers or Programmatically.
 - [ ] Refactor the Application to include "Views".
-- [ ] Refactor the Application to cater to multiple types of musicians.
+- [x] Refactor the Application to cater to multiple types of musicians.
 - [x] Refactor the Class names and add a Design Pattern to it.(Factory)
 - [ ] Refactor the Bash Script to hit the correct API endpoints.
-- [ ] Record the remaining Design patterns and implement them into report(Sidecar, Singleton, MC Framework)
+- [ ] Record the remaining Design patterns and implement them into report(Sidecar, Singleton)
 
 ## Links / Resources
 - [PlantUML Reference Guide](https://pdf.plantuml.net/1.2020.22/PlantUML_Language_Reference_Guide_en.pdf)

@@ -20,12 +20,12 @@ public class JdbcClientCompositionRepository implements CompositionRepository{
         this.jdbcTemplate = jdbcTemplate;
     }
     public List<Composition> findAll(){
-        return jdbcClient.sql("SELECT * FROM piece")
+        return jdbcClient.sql("SELECT * FROM composition")
                 .query(Composition.class)
                 .list();
     }
     public Optional<Composition> findCompositionById(Integer id){
-        return jdbcClient.sql("SELECT * FROM piece WHERE piece_id=:id")
+        return jdbcClient.sql("SELECT * FROM composition WHERE composition_id=:id")
                 .param("id",id)
                 .query(Composition.class)
                 .optional();
@@ -33,20 +33,20 @@ public class JdbcClientCompositionRepository implements CompositionRepository{
     public void create(Composition composition){
         log.info(composition.toString());
         var created = jdbcClient.sql(
-                        "INSERT INTO piece(title, year, musician_id) VALUES(?,?,?)")
+                        "INSERT INTO composition(title, year, musician_id) VALUES(?,?,?)")
                 .params(List.of(composition.getTitle(), composition.getYear(), composition.getMusicianId()))
                 .update();
         Assert.state(created == 1, "Failed to create Piece: " + composition.getTitle());
     }
-    public void update(Composition composition, int id){
+    public void update(Composition composition, Integer id){
         jdbcTemplate.update(
-                "UPDATE piece SET title=?, year=?, musician_id=? WHERE piece_id=?",
+                "UPDATE composition SET title=?, year=?, musician_id=? WHERE composition_id=?",
                 composition.getTitle(), composition.getYear(), composition.getMusicianId(), id
         );
         log.info(composition.toString());
     }
     public void delete(Integer id){
-        var deleted = jdbcTemplate.update("DELETE FROM piece WHERE composition_id=?", id);
+        var deleted = jdbcTemplate.update("DELETE FROM composition WHERE composition_id=?", id);
         Assert.state(deleted == 1, "Failed to Delete Composition: " + id);
     }
     public int count() {

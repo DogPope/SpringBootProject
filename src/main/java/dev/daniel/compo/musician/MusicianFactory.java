@@ -1,5 +1,7 @@
 package dev.daniel.compo.musician;
 
+import dev.daniel.compo.instrument.Instrument;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public abstract class MusicianFactory {
         this.genre = genre;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
-        this.dateOfDeath = null;
+        this.dateOfDeath = dateOfDeath;
         this.instruments = instruments;
     }
     public Integer getMusicianId() {

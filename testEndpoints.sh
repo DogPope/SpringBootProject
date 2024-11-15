@@ -2,30 +2,31 @@
 # Bash script that tests the applications endpoints.
 uri=http://localhost:5000/api/
 
-# Get all composers
-curl -k -X 'GET' "${uri}composers" -H 'accept: */*' -H 'Content-Type: application/json'
+# Get all musicians
+curl -k -X 'GET' "${uri}musicians" -H 'accept: */*' -H 'Content-Type: application/json'
 echo
 
 # Get composer at /1
-curl -k -X 'GET' "${uri}composers/1" -H 'accept: */*' -H 'Content-Type: application/json'
+curl -k -X 'GET' "${uri}musicians/1" -H 'accept: */*' -H 'Content-Type: application/json'
 echo
 
 # Insert composer at position
-curl -k -X 'POST' "${uri}composers" -H 'accept: */*' -H 'Content-Type: application/json' \
+curl -k -X 'POST' "${uri}musicians" -H 'accept: */*' -H 'Content-Type: application/json' \
 -d '{
-  "composerId": 8,
+  "musicianId": 8,
   "firstName": "Daniel",
   "lastName": "Jameson",
   "country": "IRELAND",
   "genre": "LITURGICAL",
   "gender": "MALE",
   "dateOfBirth": "1993-07-01",
-  "dateOfDeath": "2025-08-11"
+  "dateOfDeath": "2025-08-11",
+  "instruments":{"PIANO","ACCORDION"}
 }'
 echo
 
 # Update composer at ID
-curl -k -X 'PUT' "${uri}composers/5" -H 'accept: */*' -H 'Content-Type: application/json' \
+curl -k -X 'PUT' "${uri}musicians/5" -H 'accept: */*' -H 'Content-Type: application/json' \
 -d '{
   "firstName": "Daniel",
   "lastName": "Jameson",
@@ -37,16 +38,16 @@ curl -k -X 'PUT' "${uri}composers/5" -H 'accept: */*' -H 'Content-Type: applicat
 }'
 echo
 
-# Get all pieces
-curl -k -X 'GET' "${uri}pieces" -H 'accept: */*' -H 'Content-Type: application/json'
+# Get all compositions
+curl -k -X 'GET' "${uri}compositions" -H 'accept: */*' -H 'Content-Type: application/json'
 echo
 
 # Get Piece at /1
-curl -k -X 'GET' "${uri}pieces/1" -H 'accept: */*' -H 'Content-Type: application/json'
+curl -k -X 'GET' "${uri}compositions/1" -H 'accept: */*' -H 'Content-Type: application/json'
 echo
 
-# Insert piece into pieces
-curl -k -X 'POST' "${uri}pieces" -H 'accept: */*' -H 'Content-Type: application/json' \
+# Insert piece into compositions
+curl -k -X 'POST' "${uri}compositions" -H 'accept: */*' -H 'Content-Type: application/json' \
 -d '{
   "pieceId": 8,
   "title": "Daniel",
@@ -56,7 +57,7 @@ curl -k -X 'POST' "${uri}pieces" -H 'accept: */*' -H 'Content-Type: application/
 echo
 
 # Update piece at /5
-curl -k -X 'PUT' "${uri}pieces/5" -H 'accept: */*' -H 'Content-Type: application/json' \
+curl -k -X 'PUT' "${uri}compositions/5" -H 'accept: */*' -H 'Content-Type: application/json' \
 -d '{
   "pieceId": 8,
   "title": "Aliens Are Real",

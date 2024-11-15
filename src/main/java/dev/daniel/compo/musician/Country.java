@@ -204,16 +204,4 @@ public enum Country {
         this.name = name;
         this.continent = continent;
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Continent getContinent() {
-        return continent;
-    }
 }

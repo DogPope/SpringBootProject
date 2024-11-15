@@ -1,10 +1,25 @@
 services:
-  mariadb:
-    image: 'mariadb:11.3.2'
+  #mariadb:
+  #  restart: always
+  #  image: 'mariadb:11.3.2'
+  #  environment:
+  #    - MARIADB_DATABASE='musicians'
+  #    - MARIADB_PASSWORD='password'
+  #    - MARIADB_ROOT_PASSWORD='muchpassword'
+  #    - MARIADB_USER='daniel'
+  #  ports:
+  #    - '3306:3306'
+
+  postgres:
+    image: postgres:latest
+    restart: always
     environment:
-      - 'MARIADB_DATABASE=musicians'
-      - 'MARIADB_PASSWORD=password'
-      - 'MARIADB_ROOT_PASSWORD=verypassword'
-      - 'MARIADB_USER=daniel'
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: musicians
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
     ports:
-      - '3306:3306'
+      - "5432:5432"
+
+# Note: When running this in College, comment out regular password AND NAME. Use mariadb_root_password and mariadb_database.

@@ -35,31 +35,31 @@ public class MusicianIntegrationTest {
         Musician pianist = TestDataUtil.createPianistA();
         pianist.setMusicianId(1);
         jcmr.create(pianist);
-        Optional<MusicianFactory> result = jcmr.findById(pianist.getMusicianId());
+        Optional<Musician> result = jcmr.findById(pianist.getMusicianId());
         assertThat(result).isPresent();
         assertThat(result.get().toString()).isEqualTo(pianist.toString());
     }
     @Test
     public void testMultipleMusicianCreatedAndCalled() {
-        MusicianFactory musicianA = TestDataUtil.createPianistA();
+        Musician musicianA = TestDataUtil.createPianistA();
         jcmr.create(musicianA);
-        MusicianFactory musicianB = TestDataUtil.createPianistB();
+        Musician musicianB = TestDataUtil.createPianistB();
         jcmr.create(musicianB);
-        MusicianFactory musicianC = TestDataUtil.createPianistC();
+        Musician musicianC = TestDataUtil.createPianistC();
         jcmr.create(musicianC);
 
-        List<MusicianFactory> result = jcmr.findAll();
+        List<Musician> result = jcmr.findAll();
         assertThat(result.toString())
                 .hasSize(432).
                 contains(musicianA.toString(), musicianB.toString(), musicianC.toString());
     }
     @Test
     public void testMusicianUpdate() {
-        MusicianFactory pianistA = TestDataUtil.createPianistA();
+        Musician pianistA = TestDataUtil.createPianistA();
         jcmr.create(pianistA);
         pianistA.setFirstName("UPDATED");
         jcmr.create(pianistA);
-        Optional<MusicianFactory> result = jcmr.findById(pianistA.getMusicianId());
+        Optional<Musician> result = jcmr.findById(pianistA.getMusicianId());
         assertThat(result).isPresent();
         assertThat(result.get().toString()).isEqualTo(pianistA.toString());
     }
@@ -68,7 +68,7 @@ public class MusicianIntegrationTest {
         Musician pianistA = TestDataUtil.createPianistA();
         jcmr.create(pianistA);
         jcmr.delete(pianistA.getMusicianId());
-        Optional<MusicianFactory> result = jcmr.findById(pianistA.getMusicianId());
+        Optional<Musician> result = jcmr.findById(pianistA.getMusicianId());
         assertThat(result).isEmpty();
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/pieces")
+@RequestMapping("/api/compositions")
 public class CompositionController {
     private final JdbcClientCompositionRepository compositionRepository;
     public CompositionController(JdbcClientCompositionRepository compositionRepository){

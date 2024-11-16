@@ -6,9 +6,11 @@
 - [x] Tie Instruments to Array List and implement instruments either via Triggers or Programmatically.
 - [ ] Refactor the Application to include "Views".
 - [x] Refactor the Application to cater to multiple types of musicians.
+- [x] Display Musician info correctly, with corresponding instruments.
 - [x] Refactor the Class names and add a Design Pattern to it.(Factory)
 - [ ] Refactor the Bash Script to hit the correct API endpoints.
 - [ ] Record the remaining Design patterns and implement them into report(Sidecar, Singleton)
+- [ ] Refactor tests to work properly.
 
 ## Links / Resources
 - [PlantUML Reference Guide](https://pdf.plantuml.net/1.2020.22/PlantUML_Language_Reference_Guide_en.pdf)

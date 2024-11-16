@@ -1,6 +1,5 @@
 package dev.daniel.compo.musician;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import dev.daniel.compo.instrument.Instrument;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -9,8 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 @Component
@@ -22,27 +20,95 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
     public List<Musician> findAll() {
-        return jdbcTemplate.query("SELECT * FROM musician",
-                (rs, rowNum) -> {
-                    Musician musician = new Musician();
-                    musician.setMusicianId(rs.getInt("musician_id"));
-                    musician.setFirstName(rs.getString("first_name"));
-                    musician.setLastName(rs.getString("last_name"));
-                    musician.setCountry(Country.valueOf(rs.getString("country")));
-                    musician.setGenre(Genre.valueOf(rs.getString("genre")));
-                    musician.setGender(Gender.valueOf(rs.getString("gender")));
-                    musician.setDateOfBirth(rs.getDate("year_of_birth"));
-                    musician.setDateOfDeath(rs.getDate("year_of_death"));
-                    return musician;
-                });
+        // Good Lord this is complicated. Although it uses a HashMap to improve efficiency, which is great.
+        // I'd grade it "F" in terms of complexity. I'd grade it "A" for the fact that it actually works properly.
+        String query = """
+        SELECT
+        m.musician_id, m.first_name, m.last_name, m.country, m.genre,
+        m.gender, m.year_of_birth, m.year_of_death,
+        i.instrument_id, i.instrument_name
+        FROM musician m
+        LEFT JOIN musician_instrument mi ON m.musician_id = mi.musician_id
+        LEFT JOIN instrument i ON mi.instrument_id = i.instrument_id
+        ORDER BY m.musician_id;
+        """;
+
+        Map<Integer, Musician> musicianMap = new HashMap<>();
+
+        jdbcTemplate.query(query, (rs) -> {
+            int musicianId = rs.getInt("musician_id");
+
+            Musician musician = musicianMap.get(musicianId);
+            if (musician == null) {
+                musician = new Musician();
+                musician.setMusicianId(musicianId);
+                musician.setFirstName(rs.getString("first_name"));
+                musician.setLastName(rs.getString("last_name"));
+                musician.setCountry(Country.valueOf(rs.getString("country")));
+                musician.setGenre(Genre.valueOf(rs.getString("genre")));
+                musician.setGender(Gender.valueOf(rs.getString("gender")));
+                musician.setDateOfBirth(rs.getDate("year_of_birth"));
+                musician.setDateOfDeath(rs.getDate("year_of_death"));
+                musicianMap.put(musicianId, musician);
+            }
+
+            int instrumentId = rs.getInt("instrument_id");
+            String instrumentName = rs.getString("instrument_name");
+            if (instrumentId > 0) {
+                Instrument instrument = new Instrument();
+                instrument.setInstrumentId(instrumentId);
+                instrument.setInstrumentName(instrumentName);
+
+                musician.getInstruments().add(instrument);
+            }
+        });
+        return new ArrayList<>(musicianMap.values());
     }
+
     @Override
     public Optional<Musician> findById(Integer id) {
-        List<Musician> musician = jdbcTemplate.query(
-                "SELECT * FROM musician WHERE musician_id = ?",
-                new MusicianRowMapper(), id
-        );
-        return musician.stream().findFirst();
+        String query = """
+        SELECT
+        m.musician_id, m.first_name, m.last_name, m.country, m.genre,
+        m.gender, m.year_of_birth, m.year_of_death,
+        i.instrument_id, i.instrument_name
+        FROM musician m
+        LEFT JOIN musician_instrument mi ON m.musician_id = mi.musician_id
+        LEFT JOIN instrument i ON mi.instrument_id = i.instrument_id
+        WHERE m.musician_id = ?;
+        """;
+
+        Map<Integer, Musician> musicianMap = new HashMap<>();
+
+        jdbcTemplate.query(query, (rs) -> {
+            int musicianId = rs.getInt("musician_id");
+
+            Musician musician = musicianMap.get(musicianId);
+            if (musician == null) {
+                musician = new Musician();
+                musician.setMusicianId(musicianId);
+                musician.setFirstName(rs.getString("first_name"));
+                musician.setLastName(rs.getString("last_name"));
+                musician.setCountry(Country.valueOf(rs.getString("country")));
+                musician.setGenre(Genre.valueOf(rs.getString("genre")));
+                musician.setGender(Gender.valueOf(rs.getString("gender")));
+                musician.setDateOfBirth(rs.getDate("year_of_birth"));
+                musician.setDateOfDeath(rs.getDate("year_of_death"));
+
+                musician.setInstruments(new ArrayList<>());
+                musicianMap.put(musicianId, musician);
+            }
+
+            int instrumentId = rs.getInt("instrument_id");
+            if (instrumentId > 0) {
+                Instrument instrument = new Instrument();
+                instrument.setInstrumentId(instrumentId);
+                instrument.setInstrumentName(rs.getString("instrument_name"));
+                musician.getInstruments().add(instrument);
+            }
+        }, id);
+
+        return musicianMap.values().stream().findFirst();
     }
     public void create(Musician musician){
         jdbcTemplate.update(
@@ -62,7 +128,6 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
     public void saveAll(List<Musician> musicians){
         musicians.forEach(this::create);
     }
-
     public static class MusicianRowMapper implements RowMapper<Musician> {
         @Override
         public Musician mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -75,6 +140,7 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
             musician.setGender(Gender.valueOf(rs.getString("gender")));
             musician.setDateOfBirth(rs.getDate("year_of_birth"));
             musician.setDateOfDeath(rs.getDate("year_of_death"));
+
             return musician;
         }
     }

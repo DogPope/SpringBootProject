@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -24,7 +23,7 @@ public class JdbcMusicianFactoryRepositoryTests {
     private JdbcClientMusicianRepository jcmr;
     @Test
     public void testCreateMusicianSQL() {
-        List<Instrument> instruments = new ArrayList<>();
+        ArrayList<Instrument> instruments = new ArrayList<>();
         instruments.add(new Instrument(7,"BAGPIPES"));
         Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments
@@ -37,7 +36,7 @@ public class JdbcMusicianFactoryRepositoryTests {
     }
     @Test
     public void testUpdateMusicianSQL() {
-        List<Instrument> instruments = new ArrayList<>();
+        ArrayList<Instrument> instruments = new ArrayList<>();
         instruments.add(new Instrument(7,"BAGPIPES"));
         Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments
@@ -48,7 +47,7 @@ public class JdbcMusicianFactoryRepositoryTests {
     }
     @Test
     public void testFindByIdSQL() {
-        List<Instrument> instruments = new ArrayList<>();
+        ArrayList<Instrument> instruments = new ArrayList<>();
         instruments.add(new Instrument(7,"BAGPIPES"));
         Musician musician1 = new Musician(
                 10, "Jeff","OShea",Country.ANDORRA,Genre.THEATRE,Gender.MALE,new Date(1992,00,01),new Date(1995,00,01), instruments

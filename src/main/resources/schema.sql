@@ -49,7 +49,7 @@ last_name varchar(20) DEFAULT NULL,
 country varchar(15) NOT NULL,
 genre varchar(20) DEFAULT NULL,
 gender varchar(7) DEFAULT NULL,
-year_of_birth DATE NOT NULL,
+year_of_birth DATE NOT NULL, -- Cherry keyboard rules lmao.
 year_of_death DATE DEFAULT NULL
 );
 

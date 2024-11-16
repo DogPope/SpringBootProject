@@ -3,10 +3,13 @@ package dev.daniel.compo.instrument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +58,14 @@ public class JdbcClientInstrumentRepository implements InstrumentRepository{
     }
     public void saveAll(List<Instrument> instruments){
         instruments.forEach(this::create);
+    }
+    public static class InstrumentRowMapper implements RowMapper<Instrument> {
+        @Override
+        public Instrument mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Instrument instrument = new Instrument();
+            instrument.setInstrumentId(rs.getInt("instrument_id"));
+            instrument.setInstrumentName(rs.getString("instrument_name"));
+            return instrument;
+        }
     }
 }

@@ -4,6 +4,7 @@
 
 # To-Do List
 - [x] Tie Instruments to Array List and implement instruments either via Triggers or Programmatically.
+- [x] To avoid problems accessing ports in college, refactor database to PostgreSQL instead.
 - [ ] Refactor the Application to include "Views".
 - [x] Refactor the Application to cater to multiple types of musicians.
 - [x] Display Musician info correctly, with corresponding instruments.
@@ -14,6 +15,8 @@
 
 ## Links / Resources
 - [PlantUML Reference Guide](https://pdf.plantuml.net/1.2020.22/PlantUML_Language_Reference_Guide_en.pdf)
+- [For another day, Dan Vega has a project that implements Observability.](https://github.com/danvega/observability)
+- [This may be why the views aren't working](https://stackoverflow.com/questions/52505514/spring-boot-404-when-trying-to-load-a-html-file-using-thymeleaf)
 
 ## Branching Strategy
 For this project, the branching strategy is going to concern two major branches. The "Architecture" branch will concern major refactorings and implement them into the program.

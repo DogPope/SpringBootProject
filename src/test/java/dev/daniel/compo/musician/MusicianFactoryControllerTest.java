@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.sql.Date;
 
-@WebMvcTest(MusicianController.class)
+@WebMvcTest(MusicianRestController.class)
 public class MusicianFactoryControllerTest {
     @Autowired
     MockMvc mvc;

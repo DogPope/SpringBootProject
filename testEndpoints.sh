@@ -2,7 +2,7 @@
 # Bash script that tests the applications endpoints.
 uri=http://localhost:5000/api/
 
-curl -k -X 'GET' "${uri}musicians/index"
+curl -k -X 'GET' "${uri}musicians/index.html"
 
 # Get all musicians
 curl -k -X 'GET' "${uri}musicians" -H 'accept: */*' -H 'Content-Type: application/json'

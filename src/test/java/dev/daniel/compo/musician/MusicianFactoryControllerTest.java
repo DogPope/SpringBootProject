@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.mockito.ArgumentMatchers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,8 +38,8 @@ public class MusicianFactoryControllerTest {
                 Country.YEMEN,
                 Genre.POP,
                 Gender.MALE,
-                new Date(54,01,01),
-                new Date(54,02,02),
+                LocalDate.of(54,1,1),
+                LocalDate.of(54,2,2),
                 instruments
                 )
         );

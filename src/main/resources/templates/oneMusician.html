@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>This Page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <title>One Musician</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
     <body>
-        <h1>One Musician!</h1>
+    <h1>One Musician!</h1>
         <div>
             <h2>Musician Info:</h2>
             <p th:text="${musician != null ? musician.firstName : 'No musician found'}"></p>
@@ -14,8 +14,8 @@
             <p th:text="${musician != null ? musician.country : 'No musician found'}"></p>
             <p th:text="${musician != null ? musician.genre : 'No musician found'}"></p>
             <p th:text="${musician != null ? musician.gender : 'No musician found'}"></p>
-            <p th:text="${musician != null ? musician.yearOfBirth : 'No musician found'}"></p>
-            <p th:text="${musician != null ? musician.yearOfDeath : 'No musician found'}"></p>
+            <p th:text="${#temporals.formatISO(musician.dateOfBirth)}"></p>
+            <p th:text="${musician.dateOfDeath != null ? #temporals.formatISO(musician.dateOfDeath) : 'N/A'}"></p>
             <p th:text="${musician != null ? musician.instruments : 'No musician found'}"></p>
         </div>
     </body>

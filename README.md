@@ -50,3 +50,11 @@ When viewed, the browser displays the following:
 ## Running Tests - Dunno if this is that relevant.
 To run the Integration tests accompanying this application, the Docker container has to be run separately from the main application to prevent data from being inserted prematurely.
 The database checks total entries, for example, which numbers would be out if the app was run and sample data added before testing.
+
+## Note
+Martha Argerich causing problems, due to her still being alive. The date of death returns null, causing problems for the RowMapper.
+@RestController
+@Controller
+@Beans
+@Repository - MusicianRepository Interface + JDBCClientMusicianRepository
+@SpringBootApplication - Main.

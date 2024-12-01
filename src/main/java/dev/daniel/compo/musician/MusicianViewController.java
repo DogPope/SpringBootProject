@@ -1,10 +1,7 @@
 package dev.daniel.compo.musician;
 
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -18,26 +15,28 @@ public class MusicianViewController {
         this.musicianRepository = musicianRepository;
     }
     @GetMapping("")
-    List<Musician> findAll(){
-        return musicianRepository.findAll();
-    }
-    @GetMapping("/{id}")
-    Musician findById(@PathVariable Integer id) {
-        Optional<Musician> musician = musicianRepository.findById(id);
-        if(musician.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Musician not found.");
+    String findAll(Model model){
+        List<Musician> musicians = musicianRepository.findAll();
+        if(musicians.isEmpty()){
+            return "error.html";
         }
-        return musician.get();
+        model.addAttribute("musician",musicians);
+        return "allMusicians.html";
     }
-    @GetMapping("/easteregg")
+    @GetMapping("easteregg")
     String easterEgg(){
         return "easteregg.html";
     }
-    //http://localhost:5000/api/musicians/index
-    // That does hit, but literally only returns "index.html". Not the actual page.
-    @GetMapping("index")
-    String viewMusicians(Model model){
-        model.addAttribute("user","69420");
-        return "index.html";
+
+    //http://localhost:5000/musicians/1 2,3,4 etc
+    @GetMapping("/{id}")
+    String findById(Model model, @PathVariable Integer id){
+        Optional<Musician> musician = musicianRepository.findById(id);
+        if (musician.isPresent()) {
+            model.addAttribute("musician", musician.get());
+            return "oneMusician.html";
+        }else{
+            return "error.html";
+        }
     }
 }

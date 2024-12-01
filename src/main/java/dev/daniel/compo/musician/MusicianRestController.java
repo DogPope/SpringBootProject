@@ -2,7 +2,6 @@ package dev.daniel.compo.musician;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import org.springframework.ui.Model;
 import java.util.List;
 import java.util.Optional;
 
-// These two lines causing the problem. Changing RestController to Controller and removing RequestMapping allow you to hit http://localhost:5000/index, etc.
 @RestController
 @RequestMapping("/api/musicians")
 public class MusicianRestController {

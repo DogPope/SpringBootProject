@@ -1,7 +1,8 @@
 package dev.daniel.compo.musician;
 
 import dev.daniel.compo.instrument.Instrument;
-import java.sql.Date;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,11 @@ public abstract class MusicianFactory {
     Country country;
     Genre genre;
     Gender gender;
-    Date dateOfBirth;
-    Date dateOfDeath;
+    LocalDate dateOfBirth;
+    LocalDate dateOfDeath;
     List<Instrument> instruments;
 
-    public MusicianFactory(){
+    protected MusicianFactory(){
         this.firstName = "";
         this.lastName = "";
         this.country = null;
@@ -26,7 +27,7 @@ public abstract class MusicianFactory {
         this.dateOfDeath = null;
         this.instruments = new ArrayList<>();
     }
-    public MusicianFactory(Integer musicianId, String firstName, String lastName, Country country, Genre genre, Gender gender, Date dateOfBirth, Date dateOfDeath, List<Instrument> instruments){
+    protected MusicianFactory(Integer musicianId, String firstName, String lastName, Country country, Genre genre, Gender gender, LocalDate dateOfBirth, LocalDate dateOfDeath, List<Instrument> instruments){
         this.musicianId = musicianId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,10 +38,28 @@ public abstract class MusicianFactory {
         this.dateOfDeath = dateOfDeath;
         this.instruments = instruments;
     }
+    protected MusicianFactory(Integer musicianId, String firstName, String lastName, Country country, Genre genre, Gender gender, LocalDate dateOfBirth, LocalDate dateOfDeath){
+        this.musicianId = musicianId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.country = country;
+        this.genre = genre;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfDeath = dateOfDeath;
+    }
+    protected MusicianFactory(String firstName, String lastName, Country country, Genre genre, Gender gender, LocalDate dateOfBirth, LocalDate dateOfDeath){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.country = country;
+        this.genre = genre;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfDeath = dateOfDeath;
+    }
     public Integer getMusicianId() {
         return musicianId;
     }
-    // No need to validate this, it's never directly accessed.
     public void setMusicianId(Integer musicianId) {
         this.musicianId = musicianId;
     }
@@ -74,16 +93,16 @@ public abstract class MusicianFactory {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    public Date getDateOfDeath() {
+    public LocalDate getDateOfDeath() {
         return dateOfDeath;
     }
-    public void setDateOfDeath(Date dateOfDeath) {
+    public void setDateOfDeath(LocalDate dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
     }
     public List<Instrument> getInstruments() {

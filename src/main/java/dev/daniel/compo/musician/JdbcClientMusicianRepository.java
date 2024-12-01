@@ -21,7 +21,7 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
     }
     public List<Musician> findAll() {
         // Good Lord this is complicated. Although it uses a HashMap to improve efficiency, which is great.
-        // I'd grade it "F" in terms of complexity. I'd grade it "A" for the fact that it actually works properly.
+        // I'd grade it "F" in terms of complexity. I'd grade it "A" for the fact that it actually works as advertised.
         String query = """
         SELECT
         m.musician_id, m.first_name, m.last_name, m.country, m.genre,
@@ -47,8 +47,9 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
                 musician.setCountry(Country.valueOf(rs.getString("country")));
                 musician.setGenre(Genre.valueOf(rs.getString("genre")));
                 musician.setGender(Gender.valueOf(rs.getString("gender")));
-                musician.setDateOfBirth(rs.getDate("year_of_birth"));
-                musician.setDateOfDeath(rs.getDate("year_of_death"));
+                musician.setDateOfBirth(rs.getDate("year_of_birth").toLocalDate());
+                musician.setDateOfDeath(rs.getDate("year_of_death").toLocalDate());
+
                 musicianMap.put(musicianId, musician);
             }
 
@@ -92,8 +93,8 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
                 musician.setCountry(Country.valueOf(rs.getString("country")));
                 musician.setGenre(Genre.valueOf(rs.getString("genre")));
                 musician.setGender(Gender.valueOf(rs.getString("gender")));
-                musician.setDateOfBirth(rs.getDate("year_of_birth"));
-                musician.setDateOfDeath(rs.getDate("year_of_death"));
+                musician.setDateOfBirth(rs.getDate("year_of_birth").toLocalDate());
+                musician.setDateOfDeath(rs.getDate("year_of_death").toLocalDate());
 
                 musician.setInstruments(new ArrayList<>());
                 musicianMap.put(musicianId, musician);
@@ -138,8 +139,8 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
             musician.setCountry(Country.valueOf(rs.getString("country")));
             musician.setGenre(Genre.valueOf(rs.getString("genre")));
             musician.setGender(Gender.valueOf(rs.getString("gender")));
-            musician.setDateOfBirth(rs.getDate("year_of_birth"));
-            musician.setDateOfDeath(rs.getDate("year_of_death"));
+            musician.setDateOfBirth(rs.getDate("year_of_birth").toLocalDate());
+            musician.setDateOfDeath(rs.getDate("year_of_death").toLocalDate());
 
             return musician;
         }

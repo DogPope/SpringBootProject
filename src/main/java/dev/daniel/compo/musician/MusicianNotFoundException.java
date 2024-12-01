@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class MusicianNotFoundException extends RuntimeException{
     public MusicianNotFoundException(){
-        super("Composer Not Found!");
+        super("Musician Not Found!");
     }
 }

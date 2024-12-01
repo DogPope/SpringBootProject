@@ -1,4 +1,7 @@
 body{
-    color:darkslategrey;
-    background-color:pink;
+    color:rebeccapurple;
+    background-color:light-gray;
+}
+table, th, td {
+    border: 1px solid black;
 }

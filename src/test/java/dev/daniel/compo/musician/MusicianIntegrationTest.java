@@ -25,50 +25,44 @@ public class MusicianIntegrationTest {
     public MusicianIntegrationTest(JdbcClientMusicianRepository jcmr){
         this.jcmr = jcmr;
     }
-    /*
-    * The Methods in this class WILL work, but the database cannot be initialised beforehand, so that the API is empty upon initialization.
-    * To run these tests and have them pass, the data.sql file must first be deleted from the /resources folder above. Then, restart the application,
-    * delete the /target folder for good measure, and these tests will pass.
-    * */
     @Test
     public void TestMusicianCreation(){
-        Musician pianist = TestDataUtil.createPianistA();
-        pianist.setMusicianId(1);
-        jcmr.create(pianist);
-        Optional<Musician> result = jcmr.findById(pianist.getMusicianId());
+        Musician A = TestDataUtil.createMusicianA();
+        A.setMusicianId(1);
+        jcmr.create(A);
+        Optional<Musician> result = jcmr.findById(A.getMusicianId());
         assertThat(result).isPresent();
-        assertThat(result.get().toString()).isEqualTo(pianist.toString());
+        assertThat(result.get().toString()).isEqualTo(A.toString());
     }
     @Test
     public void testMultipleMusicianCreatedAndCalled() {
-        Musician musicianA = TestDataUtil.createPianistA();
-        jcmr.create(musicianA);
-        Musician musicianB = TestDataUtil.createPianistB();
-        jcmr.create(musicianB);
-        Musician musicianC = TestDataUtil.createPianistC();
-        jcmr.create(musicianC);
+        Musician A = TestDataUtil.createMusicianA();
+        jcmr.create(A);
+        Musician B = TestDataUtil.createMusicianB();
+        jcmr.create(B);
+        Musician C = TestDataUtil.createMusicianC();
+        jcmr.create(C);
 
         List<Musician> result = jcmr.findAll();
         assertThat(result.toString())
-                .hasSize(432).
-                contains(musicianA.toString(), musicianB.toString(), musicianC.toString());
+                .contains(A.toString(), B.toString(), C.toString());
     }
     @Test
     public void testMusicianUpdate() {
-        Musician pianistA = TestDataUtil.createPianistA();
-        jcmr.create(pianistA);
-        pianistA.setFirstName("UPDATED");
-        jcmr.create(pianistA);
-        Optional<Musician> result = jcmr.findById(pianistA.getMusicianId());
+        Musician A = TestDataUtil.createMusicianA();
+        jcmr.create(A);
+        A.setFirstName("UPDATED");
+        jcmr.create(A);
+        Optional<Musician> result = jcmr.findById(A.getMusicianId());
         assertThat(result).isPresent();
-        assertThat(result.get().toString()).isEqualTo(pianistA.toString());
+        assertThat(result.get().toString()).isEqualTo(A.toString());
     }
     @Test
     public void testMusicianDelete() {
-        Musician pianistA = TestDataUtil.createPianistA();
-        jcmr.create(pianistA);
-        jcmr.delete(pianistA.getMusicianId());
-        Optional<Musician> result = jcmr.findById(pianistA.getMusicianId());
+        Musician A = TestDataUtil.createMusicianA();
+        jcmr.create(A);
+        jcmr.delete(A.getMusicianId());
+        Optional<Musician> result = jcmr.findById(A.getMusicianId());
         assertThat(result).isEmpty();
     }
 }

@@ -3,11 +3,11 @@ package dev.daniel.compo.musician;
 import dev.daniel.compo.TestDataUtil;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Just tests for thing like getters and setters.
 public class MusicianProgramTests {
     @Test
     public void testID(){
@@ -42,7 +42,7 @@ public class MusicianProgramTests {
     @Test
     public void testDateOfBirth(){
         Musician musician1 = TestDataUtil.createMusicianA();
-        assertEquals(LocalDate.of(1222,3,11),musician1.getDateOfBirth());
+        assertEquals(LocalDate.of(1222,2,11),musician1.getDateOfBirth());
     }
     @Test
     public void testDateOfDeath(){

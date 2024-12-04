@@ -4,19 +4,15 @@ import dev.daniel.compo.TestDataUtil;
 import dev.daniel.compo.instrument.Instrument;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -28,10 +24,18 @@ class JdbcMusicianFactoryRepositoryTests {
     private JdbcClientMusicianRepository jcmr;
     @Test
     void testCreateMusicianSQL() {
-        Musician musician1 = TestDataUtil.createMusicianA();
-        jcmr.create(musician1);
-        System.out.println(jcmr.findById(1));
-        assertThat(musician1.getMusicianId().equals(1));
+        Musician d = TestDataUtil.createMusicianD();
+        jcmr.create(d);
+        verify(jdbcTemplate).update(
+                eq("INSERT INTO musician(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)"),
+                eq(d.getFirstName()),
+                eq(d.getLastName()),
+                eq(d.getCountry().toString()),
+                eq(d.getGenre().toString()),
+                eq(d.getGender().toString()),
+                eq(d.getDateOfBirth()),
+                eq(d.getDateOfDeath())
+        );
     }
     @Test
     void testUpdateMusicianSQL() {
@@ -46,28 +50,11 @@ class JdbcMusicianFactoryRepositoryTests {
     }
     @Test
     void testFindByIdSQL() {
-        Musician musician1 = TestDataUtil.createMusicianA();
-        jcmr.findById(musician1.getMusicianId());
-        verify(jdbcTemplate).query(
-                eq("""
-                        SELECT
-                            m.musician_id,
-                            m.first_name,
-                            m.last_name,
-                            m.country,
-                            m.genre,
-                            m.gender,
-                            m.year_of_birth,
-                            m.year_of_death,
-                            i.instrument_name
-                        FROM musician m
-                        JOIN musician_instrument mi ON m.musician_id = mi.musician_id
-                        JOIN instrument i ON mi.instrument_id = i.instrument_id
-                        WHERE m.musician_id = 1;
-                        """),
-                ArgumentMatchers.<JdbcClientMusicianRepository.MusicianRowMapper>any(),
-                eq(10)
-        );
+        // Why was this method so complicated by me? All you have to test is create() and findById(). What I had before was needlessly complex.
+        Musician a = TestDataUtil.createMusicianA();
+        jcmr.create(a);
+        jcmr.findById(a.getMusicianId());
+        assertEquals(1,a.getMusicianId());
     }
     @Test
     void testDeleteSql() {

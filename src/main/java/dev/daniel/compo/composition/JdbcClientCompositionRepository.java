@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public class JdbcClientCompositionRepository implements CompositionRepository{
-    private static final Logger log = LoggerFactory.getLogger(CompositionRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JdbcClientCompositionRepository.class);
     private final JdbcClient jdbcClient;
     private final JdbcTemplate jdbcTemplate;
     public JdbcClientCompositionRepository(JdbcClient jdbcClient, JdbcTemplate jdbcTemplate){

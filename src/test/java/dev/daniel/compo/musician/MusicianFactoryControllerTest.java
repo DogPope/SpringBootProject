@@ -1,6 +1,5 @@
 package dev.daniel.compo.musician;
 
-import dev.daniel.compo.instrument.Instrument;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import java.sql.Date;
 
 @WebMvcTest(MusicianRestController.class)
 public class MusicianFactoryControllerTest {
@@ -30,8 +28,6 @@ public class MusicianFactoryControllerTest {
     private final List<Musician> pianists = new ArrayList<>();
     @BeforeEach
     void setUp() {
-        List<Instrument> instruments = new ArrayList<>();
-        instruments.add(new Instrument(3,"PIANO"));
         pianists.add(new Musician(1,
                 "Patrick",
                 "Bezos",
@@ -39,8 +35,7 @@ public class MusicianFactoryControllerTest {
                 Genre.POP,
                 Gender.MALE,
                 LocalDate.of(54,1,1),
-                LocalDate.of(54,2,2),
-                instruments
+                LocalDate.of(54,2,2)
                 )
         );
     }
@@ -58,8 +53,7 @@ public class MusicianFactoryControllerTest {
                 .andExpect(jsonPath("$.genre", is(musician.getGenre().toString())))
                 .andExpect(jsonPath("$.gender", is(musician.getGender().toString())))
                 .andExpect(jsonPath("$.dateOfBirth", is(musician.getDateOfBirth().toString())))
-                .andExpect(jsonPath("$.dateOfDeath", is(musician.getDateOfDeath().toString())))
-                .andExpect(jsonPath("$.instruments",is(musician.getInstruments())));// Not sure about this one, as the database wasn't done first.
+                .andExpect(jsonPath("$.dateOfDeath", is(musician.getDateOfDeath().toString())));
     }
 
     @Test

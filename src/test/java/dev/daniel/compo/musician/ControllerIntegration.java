@@ -49,7 +49,6 @@ public class ControllerIntegration {
     @Test
     void createMusician() {
         Musician musician = TestDataUtil.createMusicianD();
-        System.out.println(musician);
 
         ResponseEntity<Void> newMusician = restClient.post()
                 .uri("/api/musicians")

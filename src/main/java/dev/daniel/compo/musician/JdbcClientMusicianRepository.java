@@ -1,5 +1,7 @@
 package dev.daniel.compo.musician;
 import dev.daniel.compo.instrument.Instrument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -13,6 +15,7 @@ import java.util.*;
 @Repository
 @Component
 public class JdbcClientMusicianRepository implements MusicianRepository {
+    private final Logger log = LoggerFactory.getLogger(JdbcClientMusicianRepository.class);
     private final JdbcTemplate jdbcTemplate;
     private final JdbcClient jdbcClient;
     public JdbcClientMusicianRepository(JdbcClient jdbcClient, JdbcTemplate jdbcTemplate){
@@ -63,6 +66,7 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
                 musician.getInstruments().add(instrument);
             }
         });
+        log.info(musicianMap.toString());
         return new ArrayList<>(musicianMap.values());
     }
 
@@ -108,17 +112,19 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
                 musician.getInstruments().add(instrument);
             }
         }, id);
-
+        log.info(musicianMap.toString());
         return musicianMap.values().stream().findFirst();
     }
     public void create(Musician musician){
         jdbcTemplate.update(
                 "INSERT INTO musician(first_name, last_name, country, genre, gender, year_of_birth, year_of_death) VALUES(?,?,?,?,?,?,?)",
                 musician.getFirstName(),musician.getLastName(),musician.getCountry().toString(),musician.getGenre().toString(),musician.getGender().toString(),musician.getDateOfBirth(), musician.getDateOfDeath());
+        log.info(musician.toString());
     }
     public void update(Musician musician, Integer id){
         jdbcTemplate.update("UPDATE musician SET first_name=?,last_name=?,country=?,genre=?,gender=?,year_of_birth=?,year_of_death=? WHERE musician_id=?",
                 musician.getFirstName(),musician.getLastName(),musician.getCountry().toString(),musician.getGenre().toString(),musician.getGender().toString(),musician.getDateOfBirth(),musician.getDateOfDeath(), id);
+        log.info(musician.toString());
     }
     public void delete(Integer id){
         jdbcTemplate.update("DELETE FROM musician WHERE musician_id=?", id);
@@ -128,6 +134,7 @@ public class JdbcClientMusicianRepository implements MusicianRepository {
     }
     public void saveAll(List<Musician> musicians){
         musicians.forEach(this::create);
+        log.info(musicians.toString());
     }
     public static class MusicianRowMapper implements RowMapper<Musician> {
         @Override

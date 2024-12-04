@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Repository
 public class JdbcClientInstrumentRepository implements InstrumentRepository{
-    private static final Logger log = LoggerFactory.getLogger(InstrumentRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JdbcClientInstrumentRepository.class);
     private final JdbcClient jdbcClient;
     private final JdbcTemplate jdbcTemplate;
 
@@ -65,6 +65,7 @@ public class JdbcClientInstrumentRepository implements InstrumentRepository{
             Instrument instrument = new Instrument();
             instrument.setInstrumentId(rs.getInt("instrument_id"));
             instrument.setInstrumentName(rs.getString("instrument_name"));
+            log.info(instrument.toString());
             return instrument;
         }
     }
